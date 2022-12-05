@@ -149,7 +149,7 @@ Now we have a good directory structure we will now place/save the data file in t
 > Download the gapminder data from [here](https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv).
 >
 > 1. Download the file (right mouse click on the link above -> "Save link as" / "Save file as", or click on the link and after the page loads, press <kbd>Ctrl</kbd>+<kbd>S</kbd> or choose File -> "Save page as")
-> 2. Make sure it's saved under the name `gapminder_data.csv`
+> 2. Make sure it's saved under the name `daily_summary.csv`
 > 3. Save the file in the `data/` folder within your project.
 >
 > We will load and inspect these data later.
@@ -168,15 +168,15 @@ Now we have a good directory structure we will now place/save the data file in t
 > >
 > > By running these commands in the shell:
 > > ```{r ch2a-sol, engine='sh'}
-> > ls -lh data/gapminder_data.csv
+> > ls -lh data/daily_summary.csv
 > > ```
-> > The file size is 80K.
+> > The file size is 549K.
 > > ```{r ch2b-sol, engine='sh'}
-> > wc -l data/gapminder_data.csv
+> > wc -l data/daily_summary.csv
 > > ```
-> > There are 1705 lines. The data looks like:
+> > There are 9181 lines. The data looks like:
 > > ```{r ch2c-sol, engine='sh'}
-> > head data/gapminder_data.csv
+> > head data/daily_summary.csv
 > > ```
 > {: .solution}
 {: .challenge}

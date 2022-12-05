@@ -37,11 +37,12 @@ knitr_fig_path("01-")
 ## Motivation
 
 Research is a multi-step process: once you've designed an experiment and
-collected data, analysis begins! This lesson will teach you how to
-start the data analysis process using R and RStudio. 
+collected data, analysis begins! This lesson will teach you how to start
+the data analysis process using R and RStudio.
 
-This workshop uses a dataset from
-[The University of Arizona Test-Trace-Treat program](https://covid19.arizona.edu/test-trace-treat) containing COVID-19 test results for individuals across campus. 
+This workshop uses a dataset from [The University of Arizona
+Test-Trace-Treat program](https://covid19.arizona.edu/test-trace-treat)
+containing COVID-19 test results for individuals across campus.
 
 ## Before Starting The Workshop
 
@@ -53,6 +54,8 @@ may not install correctly (or at all) if R is not up to date.
     here](https://www.r-project.org/)
 -   [Download and install RStudio
     here](https://www.rstudio.com/products/rstudio/download/#download)
+-   [Download
+    data](https://arizona.figshare.com/articles/dataset/University_of_Arizona_Test-Trace-Treat_COVID-19_testing_results/14869740)
 
 ## Introduction to RStudio
 
@@ -85,7 +88,7 @@ in the top left.
 > ## R scripts
 >
 > Any commands that you write in the R console can be saved in to a file
-> to be re-run again. Files containg R code to be ran in this way are
+> to be re-run again. Files containing R code to be ran in this way are
 > called R scripts. R scripts have `.R` at the end of their names to let
 > you know what they are. {: .callout}
 
@@ -152,13 +155,10 @@ it. If you are familiar with Unix Shell's bash, you may recognize this\
 behavior from bash.
 
 ```{r, error = FALSE, eval=FALSE}
-
 1 +
-
 ```
 
 ```{r, error = FALSE, eval=FALSE}
-
 +
 ```
 
@@ -651,14 +651,13 @@ Install and Update buttons at the top of the tab.
 > > ```{r ch5-sol, eval=FALSE}
 > > install.packages("ggplot2")
 > > install.packages("plyr")
-> > install.packages("gapminder")
 > > ```
 > >
 > > An alternate solution, to install multiple packages with a single
 > > `install.packages()` command is:
 > >
 > > ```{r ch5-sol2, eval=FALSE}
-> > install.packages(c("ggplot2", "plyr", "gapminder"))
+> > install.packages(c("ggplot2", "plyr"))
 > > ```
 > >
 > > {: .solution} {: .challenge}
