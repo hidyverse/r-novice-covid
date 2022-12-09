@@ -524,7 +524,7 @@ link as” / “Save file as”, or click on the link and after the page
 loads, press <kbd>Ctrl</kbd>+<kbd>S</kbd> or choose File -&gt; “Save
 page as”)</li>
 <li>Make sure it’s saved under the name
-<code>gapminder_data.csv</code></li>
+<code>daily_summary.csv</code></li>
 <li>Save the file in the <code>data/</code> folder within your
 project.</li>
 </ol>
@@ -544,11 +544,11 @@ contain? 3. What kinds of values are stored in this file?</p>
 <pre><code>ls -lh data/daily_summary.csv</code></pre>
 <p>{: .language-sh}</p>
 <pre><code>-rw-rw-r--@ 1 hidyverse  staff   549K Dec  2 15:36 data/daily_summary.csv</code></pre>
-<p>{: .output} The file size is 80K.</p>
+<p>{: .output} The file size is 549K.</p>
 <pre><code>wc -l data/daily_summary.csv</code></pre>
 <p>{: .language-sh}</p>
 <pre><code>    9181 data/daily_summary.csv</code></pre>
-<p>{: .output} There are 1705 lines. The data looks like:</p>
+<p>{: .output} There are 9181 lines. The data looks like:</p>
 <pre><code>head data/daily_summary.csv</code></pre>
 <p>{: .language-sh}</p>
 <pre><code>&quot;result_date&quot;,&quot;affil_category&quot;,&quot;test_type&quot;,&quot;test_result&quot;,&quot;test_count&quot;,&quot;test_source&quot;
