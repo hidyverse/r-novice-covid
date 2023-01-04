@@ -2,8 +2,7 @@
 title: Setup
 ---
 
-This lesson assumes you have R and RStudio installed on your computer.
+This lesson assumes you are affiliated with an academic institution and therefore have access to Cyverse computing infrastructure. 
 
-* [Download and install the latest version of R](https://www.r-project.org/).
-* [Download and install RStudio](https://www.rstudio.com/products/rstudio/download/#download). RStudio is an application (an integrated development environment or IDE) that facilitates the use of R and offers a number of nice additional features. You will need the free Desktop version for your computer.
+* Create a *free* [Cyverse](https://user.cyverse.org/) account 
 * [Download Test-Trace-Treat COVID-19 testing data](https://arizona.figshare.com/articles/dataset/University_of_Arizona_Test-Trace-Treat_COVID-19_testing_results/14869740)
