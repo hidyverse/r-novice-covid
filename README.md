@@ -14,6 +14,8 @@ are not necessarily the best, nor are they comprehensive, but they are
 packages we find useful, and have been chosen primarily for their
 usability.
 
+[Provide workshop feedback!](https://uarizona.co1.qualtrics.com/jfe/form/SV_4Ypind02vzvRSIe)
+
 Maintainers:
 
 * [Heidi Steiner](heidi_steiner)
