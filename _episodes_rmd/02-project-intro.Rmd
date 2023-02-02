@@ -146,7 +146,7 @@ one to store the analysis scripts.
 Now we have a good directory structure we will now place/save the data file in the `data/` directory.
 
 > ## Challenge 3
-> Download the gapminder data from [here](https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv).
+> Copy the "r-novice-covid" data from the shared data directory in Cyverse. Hint: data/data/iplant/home/shared/cosimichele/dailysummary.csv
 >
 > 1. Download the file (right mouse click on the link above -> "Save link as" / "Save file as", or click on the link and after the page loads, press <kbd>Ctrl</kbd>+<kbd>S</kbd> or choose File -> "Save page as")
 > 2. Make sure it's saved under the name `daily_summary.csv`

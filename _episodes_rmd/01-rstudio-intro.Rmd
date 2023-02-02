@@ -1,5 +1,5 @@
 ---
-title: "Introduction to R and RStudio"
+title: "Introduction to Cyverse, R, and RStudio"
 teaching: 45
 exercises: 10
 questions:
@@ -46,29 +46,52 @@ containing COVID-19 test results for individuals across campus.
 
 ## Before Starting The Workshop
 
-Please ensure you have the latest version of R and RStudio installed on
-your machine. This is important, as some packages used in the workshop
-may not install correctly (or at all) if R is not up to date.
+Please ensure you registered for a
+[Cyverse]([https://user.cyverse.org/)](https://user.cyverse.org/))
+account.
 
--   [Download and install the latest version of R
-    here](https://www.r-project.org/)
--   [Download and install RStudio
-    here](https://www.rstudio.com/products/rstudio/download/#download)
--   [Download
-    data](https://arizona.figshare.com/articles/dataset/University_of_Arizona_Test-Trace-Treat_COVID-19_testing_results/14869740)
+## Introduction to Cyverse
+
+Cyverse is a computational research infrastructure built by research
+scientists for research scientists that includes:
+
+[![](https://learning.cyverse.org/assets/de/menu_items/dataIcon.svg){alt=""}](https://cyverse.org/data-store)
+[Data Storage](https://cyverse.org/data-store) - free allocation space
+for all users, and fee-based storage services
+
+[![](https://learning.cyverse.org/assets/de/logos/deIcon.svg){alt=""}](https://user.cyverse.org/services/2)
+[Data Science Workbench](https://user.cyverse.org/services/2) - An
+interactive, web-based, analytical platform called the "[Discovery
+Environment](https://de.cyverse.org/)"
+
+[Cloud](https://user.cyverse.org/services/1) - hosted OpenStack virtual
+machines for computation, analysis, and storage
+
+[External Collaborative Partnerships](https://cyverse.org/ecp) - Work
+with our experienced data scientists and software engineers to scale
+your algorithms and data onto cloud and high performance compute
+
+[Education and Training](https://cyverse.org/teach) - learn how to use
+containers, workflows, and public research cyberinfrastructure from our
+professional trainers
+
+[Cloud Resources](https://user.cyverse.org/requests/8) for running your
+class or workshop in the cloud.
+
+Learn more in the [Cyverse Learning
+center](https://learning.cyverse.org/).
 
 ## Introduction to RStudio
-
-Welcome to the R portion of the Software Carpentry workshop.
 
 Throughout this lesson, we're going to teach you some of the
 fundamentals of the R language as well as some best practices for
 organizing code for scientific projects that will make your life easier.
 
 We'll be using RStudio: a free, open-source R Integrated Development
-Environment (IDE). It provides a built-in editor, works on all platforms
-(including on servers) and provides many advantages such as integration
-with version control and project management.
+Environment (IDE), within Cyverse. RStudio provides a built-in editor,
+works on all platforms (including on servers) and provides many
+advantages such as integration with version control and project
+management.
 
 **Basic layout**
 
@@ -83,7 +106,8 @@ When you first open RStudio, you will be greeted by three panels:
 Once you open files, such as R scripts, an editor panel will also open
 in the top left.
 
-![RStudio layout with .R file open](../fig/01-rstudio-script.png)
+![RStudio layout with .R file
+open](../fig/01-rstudio-script.png){width="435"}
 
 > ## R scripts
 >

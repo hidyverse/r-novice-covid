@@ -4,9 +4,10 @@ root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
 
-*an introduction to R for non-programmers using test-trace-treat data*
+### *An introduction to R for non-programmers using [Test-Trace-Treat](https://covid19.arizona.edu/test-trace-treat) data*
 
-The goal of this lesson is to teach novice programmers to use R for data analysis. The emphasis of these materials is to give
+The goal of this lesson is to teach novice programmers to use R for data analysis. 
+The emphasis of these materials is to give
 attendees a strong foundation in R, and to teach best
 practices for managing projects, seeking help, and working with data in R.
 
@@ -15,9 +16,8 @@ programming language R, and will not teach statistical analysis.
 
 
 A variety of third party packages are used throughout this workshop. These
-are not necessarily the best, nor are they comprehensive, but they are
-packages we find useful, and have been chosen primarily for their
-usability.
+are not necessarily the best, nor are they comprehensive, but they are useful
+packages to know.
 
 > ## Prerequisites
 >

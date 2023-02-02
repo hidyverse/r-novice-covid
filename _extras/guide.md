@@ -11,7 +11,7 @@ not).
 
 ## Lesson Plans
 
-* 01 Introduction to R and RStudio
+* 01 Introduction to Cyverse, R, and RStudio
 * 02 Project Management With RStudio + 03 Seeking Help
 * 04 Data Structures
 

@@ -1,4 +1,4 @@
-[![Create a Slack Account with us](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/)
+[![Join the Carpentries Community on Slack](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/)
 
 Introduction to R for Reproducible Scientific Analysis
 ======================================
@@ -10,9 +10,8 @@ for instructions on formatting, building, and submitting material,
 or run `make` in this directory for a list of helpful commands.
 
 A variety of third party packages are used throughout this workshop. These
-are not necessarily the best, nor are they comprehensive, but they are
-packages we find useful, and have been chosen primarily for their
-usability.
+are not necessarily the best, nor are they comprehensive, but they are useful
+packages.
 
 Maintainers:
 
