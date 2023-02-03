@@ -20,9 +20,9 @@ knitr_fig_path("03-")
 
 ## Reading Help Files
 
-R, and every package, provide help files for functions. The general syntax to search for help on any
+R, and every package, provide help files for functions. The two general ways to search for help on any
 function, "function_name", from a specific function that is in a package loaded into your
-namespace (your interactive R session) is:
+namespace (your interactive R session) are:
 
 ```{r, eval=FALSE}
 ?function_name
@@ -121,7 +121,7 @@ fields. This can be a good starting point.
 
 ## When Your Code Doesn't Work: Seeking Help from Your Peers
 
-If you're having trouble using a function, 9 times out of 10,
+If you're having trouble using a function, 9.5 times out of 10,
 the answers you seek have already been answered on
 [Stack Overflow](http://stackoverflow.com/). You can search using
 the `[r]` tag. Please make sure to see their page on 
