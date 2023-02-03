@@ -4,7 +4,7 @@ root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
 
-### *An introduction to R for non-programmers using [Test-Trace-Treat](https://covid19.arizona.edu/test-trace-treat) data*
+#### *An introduction to R for non-programmers using [Test-Trace-Treat](https://covid19.arizona.edu/test-trace-treat) data*
 
 The goal of this lesson is to teach novice programmers to use R for data analysis. 
 The emphasis of these materials is to give
