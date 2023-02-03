@@ -145,6 +145,16 @@ Will print out your current version of R, as well as any packages you
 have loaded. This can be useful for others to help reproduce and debug
 your issue.
 
+## How to Write a Reproducible Example 
+
+Sometimes you can answer your own question by breaking down the error into a packageable question! Learn to write [reproducible examples with Hadley Wickham](http://adv-r.had.co.nz/Reproducibility.html#:~:text=A%20reproducible%20example%20allows%20someone,description%20of%20your%20R%20environment.).
+
+## Get help at UArizona
+
+Join the [UA Data Science Slack](https://jcoliver.github.io/uadatascience-slack/)
+Check out weekly meetups with [ResBaz Arizona](https://researchbazaar.arizona.edu/)
+Ask a [Data Science Institute Educator](https://datascience.arizona.edu/education)
+
 > ## Challenge 1
 >
 > Look at the help page for the `c` function. What kind of vector do you

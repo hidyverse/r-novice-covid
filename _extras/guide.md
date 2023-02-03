@@ -40,7 +40,7 @@ $ git config --global credential.helper 'cache --timeout=10000000'
 ## Pulling in Data
 
 The easiest way to get the data used in this lesson during a workshop is to have
-attendees download the raw data from [ReDATA][https://arizona.figshare.com/articles/dataset/University_of_Arizona_Test-Trace-Treat_COVID-19_testing_results/14869740] by clicking `Download all`.
+attendees access data from within Cyverse by searching "r-novice-covid" and selecting "daily_summary.csv". Rather, one may download the raw data from [ReDATA](https://arizona.figshare.com/articles/dataset/University_of_Arizona_Test-Trace-Treat_COVID-19_testing_results/14869740) by clicking `Download all`.
 
 
 ## Overall
