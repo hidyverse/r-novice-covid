@@ -314,16 +314,16 @@ is the same type in your vectors and your columns of data.frames, or you
 will get nasty surprises!
 
 But coercion can also be very useful! For example, in our `rats` data
-`likes_string` is numeric, but we know that the 1s and 0s actually
+`likes_cheese` is numeric, but we know that the 1s and 0s actually
 represent `TRUE` and `FALSE` (a common way of representing them). We
 should use the `logical` datatype here, which has two states: `TRUE` or
 `FALSE`, which is exactly what our data represents. We can 'coerce' this
 column to be `logical` by using the `as.logical` function:
 
 ```{r}
-rats$likes_string
-rats$likes_string <- as.logical(rats$likes_string)
-rats$likes_string
+rats$likes_cheese
+rats$likes_cheese <- as.logical(rats$likes_cheese)
+rats$likes_cheese
 ```
 
 The combine function, `c()`, will also append things to an existing

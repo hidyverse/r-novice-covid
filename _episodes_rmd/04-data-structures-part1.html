@@ -355,40 +355,40 @@ display: none;
 
 <p>One of R’s most powerful features is its ability to deal with tabular
 data - such as you may already have in a spreadsheet or a CSV file.
-Let’s start by making a toy dataset in your <code>data/</code>
-directory, called <code>feline-data.csv</code>:</p>
-<pre><code>cats &lt;- data.frame(coat = c(&quot;calico&quot;, &quot;black&quot;, &quot;tabby&quot;),
-                    weight = c(2.1, 5.0, 3.2),
-                    likes_string = c(1, 0, 1))</code></pre>
+Let’s start by <strong>making a toy dataset</strong> in your
+<code>data/</code> directory, called <code>rats-data.csv</code>:</p>
+<pre><code>rats &lt;- data.frame(coat = factor(c(&quot;white&quot;, &quot;white&quot;, &quot;hairless&quot;)),
+                   weight = c(2.1, 5.0, 3.2),
+                   likes_cheese = c(1, 0, 1))</code></pre>
 <p>{: .language-r}</p>
-<p>We can now save <code>cats</code> as a CSV file. It is good practice
+<p>We can now save <code>rats</code> as a CSV file. It is good practice
 to call the argument names explicitly so the function knows what default
 values you are changing. Here we are setting
 <code>row.names = FALSE</code>. Recall you can use
 <code>?write.csv</code> to pull up the help file to check out the
 argument names and their default values.</p>
-<pre><code>write.csv(x = cats, file = &quot;data/feline-data.csv&quot;, row.names = FALSE)</code></pre>
+<pre><code>write.csv(x = rats, file = &quot;data/rats-data.csv&quot;, row.names = FALSE)</code></pre>
 <p>{: .language-r}</p>
-<p>The contents of the new file, <code>feline-data.csv</code>:</p>
-<pre><code>coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1</code></pre>
+<p>The contents of the new file, <code>rats-data.csv</code>:</p>
+<pre><code>coat,weight,likes_cheese
+white,2.1,1
+white,5.0,0
+hairless,3.2,1</code></pre>
 <p>{: .language-r}</p>
 <blockquote>
 <h2 id="tip-editing-text-files-in-r">Tip: Editing Text files in R</h2>
-<p>Alternatively, you can create <code>data/feline-data.csv</code> using
-a text editor (Nano), or within RStudio with the <strong>File -&gt; New
+<p>Alternatively, you can create <code>data/rats-data.csv</code> using a
+text editor (Nano), or within RStudio with the <strong>File -&gt; New
 File -&gt; Text File</strong> menu item. {: .callout}</p>
 </blockquote>
 <p>We can load this into R via the following:</p>
-<pre><code>cats &lt;- read.csv(file = &quot;data/feline-data.csv&quot;, stringsAsFactors = TRUE)
-cats</code></pre>
+<pre><code>rats &lt;- read.csv(file = &quot;data/rats-data.csv&quot;, stringsAsFactors = TRUE)
+rats</code></pre>
 <p>{: .language-r}</p>
-<pre><code>    coat weight likes_string
-1 calico    2.1            1
-2  black    5.0            0
-3  tabby    3.2            1</code></pre>
+<pre><code>      coat weight likes_cheese
+1    white    2.1            1
+2    white    5.0            0
+3 hairless    3.2            1</code></pre>
 <p>{: .output}</p>
 <p>The <code>read.table</code> function is used for reading in tabular
 data stored in a text file where the columns of data are separated by
@@ -404,29 +404,29 @@ delimiting punctuation marks for both <code>read.csv</code> and
 <code>read.delim</code>.</p>
 <p>We can begin exploring our dataset right away, pulling out columns by
 specifying them using the <code>$</code> operator:</p>
-<pre><code>cats$weight</code></pre>
+<pre><code>rats$weight</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] 2.1 5.0 3.2</code></pre>
 <p>{: .output}</p>
-<pre><code>cats$coat</code></pre>
+<pre><code>rats$coat</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico black  tabby 
-Levels: black calico tabby</code></pre>
+<pre><code>[1] white    white    hairless
+Levels: hairless white</code></pre>
 <p>{: .output}</p>
 <p>We can do other operations on the columns:</p>
 <pre><code>## Say we discovered that the scale weighs two Kg light:
-cats$weight + 2</code></pre>
+rats$weight + 2</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] 4.1 7.0 5.2</code></pre>
 <p>{: .output}</p>
-<pre><code>paste(&quot;My cat is&quot;, cats$coat)</code></pre>
+<pre><code>paste(&quot;My rat is&quot;, rats$coat)</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] &quot;My cat is calico&quot; &quot;My cat is black&quot;  &quot;My cat is tabby&quot; </code></pre>
+<pre><code>[1] &quot;My rat is white&quot;    &quot;My rat is white&quot;    &quot;My rat is hairless&quot;</code></pre>
 <p>{: .output}</p>
 <p>But what about</p>
-<pre><code>cats$weight + cats$coat</code></pre>
+<pre><code>rats$weight + rats$coat</code></pre>
 <p>{: .language-r}</p>
-<pre><code>Warning in Ops.factor(cats$weight, cats$coat): &#39;+&#39; not meaningful for factors</code></pre>
+<pre><code>Warning in Ops.factor(rats$weight, rats$coat): &#39;+&#39; not meaningful for factors</code></pre>
 <p>{: .warning}</p>
 <pre><code>[1] NA NA NA</code></pre>
 <p>{: .output}</p>
@@ -435,11 +435,11 @@ data in R.</p>
 <div id="data-types" class="section level2">
 <h2>Data Types</h2>
 <p>If you guessed that the last command will return an error because
-<code>2.1</code> plus <code>&quot;black&quot;</code> is nonsense, you’re right -
+<code>2.1</code> plus <code>&quot;white&quot;</code> is nonsense, you’re right -
 and you already have some intuition for an important concept in
 programming called <em>data types</em>. We can ask what type of data
 something is:</p>
-<pre><code>typeof(cats$weight)</code></pre>
+<pre><code>typeof(rats$weight)</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <p>{: .output}</p>
@@ -469,32 +469,32 @@ something is:</p>
 <p>No matter how complicated our analyses become, all data in R is
 interpreted as one of these basic data types. This strictness has some
 really important consequences.</p>
-<p>A user has added details of another cat. This information is in the
-file <code>data/feline-data_v2.csv</code>.</p>
-<pre><code>file.show(&quot;data/feline-data_v2.csv&quot;)</code></pre>
+<p>A lab technician has added details of another rat. This information
+is in the file <code>data/rats-data_v2.csv</code>.</p>
+<pre><code>file.show(&quot;data/rats-data_v2.csv&quot;)</code></pre>
 <p>{: .language-r}</p>
-<pre><code>coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1
-tabby,2.3 or 2.4,1</code></pre>
+<pre><code>coat,weight,likes_cheese
+white,2.1,1
+white,5.0,0
+hairless,3.2,1
+hairless,2.3 or 2.4,1</code></pre>
 <p>{: .language-r}</p>
-<p>Load the new cats data like before, and check what type of data we
+<p>Load the new rats data like before, and check what type of data we
 find in the <code>weight</code> column:</p>
-<pre><code>cats &lt;- read.csv(file=&quot;data/feline-data_v2.csv&quot;, stringsAsFactors = TRUE)
-typeof(cats$weight)</code></pre>
+<pre><code>rats &lt;- read.csv(file=&quot;data/rats-data_v2.csv&quot;, stringsAsFactors = TRUE)
+typeof(rats$weight)</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>{: .output}</p>
 <p>Oh no, our weights aren’t the double type anymore! If we try to do
 the same math we did on them before, we run into trouble:</p>
-<pre><code>cats$weight + 2</code></pre>
+<pre><code>rats$weight + 2</code></pre>
 <p>{: .language-r}</p>
-<pre><code>Warning in Ops.factor(cats$weight, 2): &#39;+&#39; not meaningful for factors</code></pre>
+<pre><code>Warning in Ops.factor(rats$weight, 2): &#39;+&#39; not meaningful for factors</code></pre>
 <p>{: .warning}</p>
 <pre><code>[1] NA NA NA NA</code></pre>
 <p>{: .output}</p>
-<p>What happened? The <code>cats</code> data we are working with is
+<p>What happened? The <code>rats</code> data we are working with is
 something called a <em>data frame</em>. Data frames are one of the most
 common and versatile types of <em>data structures</em> we will work with
 in R. In this example, the columns that make up the data frame cannot be
@@ -503,27 +503,28 @@ everything in the data frame as a <em>double</em>, therefore the entire
 column data type changes to something that is suitable for everything in
 the column.</p>
 <p>When R reads a csv file, it reads it in as a <em>data frame</em>.
-Thus, when we loaded the <code>cats</code> csv file, it is stored as a
+Thus, when we loaded the <code>rats</code> csv file, it is stored as a
 data frame. We can check this by using the function
 <code>class()</code>.</p>
-<pre><code>class(cats)</code></pre>
+<pre><code>class(rats)</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<p>{: .output} <em>Data frames</em> are composed of rows and columns,
-where each column has the same number of rows. Different columns in a
-data frame can be made up of different data types (this is what makes
-them so versatile), but everything in a given column needs to be the
-same type (e.g., vector, factor, or list).</p>
+<p>{: .output}</p>
+<p><em>Data frames</em> are composed of rows and columns, where each
+column has the same number of rows. Different columns in a data frame
+can be made up of different data types (this is what makes them so
+versatile), but everything in a given column needs to be the same type
+(e.g., vector, factor, or list).</p>
 <p>Let’s explore more about different data structures and how they
-behave. For now, let’s remove that extra line from our cats data and
+behave. For now, let’s remove that extra line from our rats data and
 reload it, while we investigate this behavior further:</p>
-<p>feline-data.csv:</p>
-<pre><code>coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1</code></pre>
+<p>rats-data.csv:</p>
+<pre><code>coat,weight,likes_cheese
+white,2.1,1
+white,5.0,0
+hairless,3.2,1</code></pre>
 <p>And back in RStudio:</p>
-<pre><code>cats &lt;- read.csv(file=&quot;data/feline-data.csv&quot;, stringsAsFactors = TRUE)</code></pre>
+<pre><code>rats &lt;- read.csv(file=&quot;data/rats-data.csv&quot;, stringsAsFactors = TRUE)</code></pre>
 <p>{: .language-r}</p>
 </div>
 <div id="vectors-and-type-coercion" class="section level2">
@@ -556,11 +557,11 @@ character; an indication of the number of things in the vector -
 actually, the indexes of the vector, in this case <code>[1:3]</code>;
 and a few examples of what’s actually in the vector - in this case empty
 character strings. If we similarly do</p>
-<pre><code>str(cats$weight)</code></pre>
+<pre><code>str(rats$weight)</code></pre>
 <p>{: .language-r}</p>
 <pre><code> num [1:3] 2.1 5 3.2</code></pre>
 <p>{: .output}</p>
-<p>we see that <code>cats$weight</code> is a vector, too - <em>the
+<p>we see that <code>rats$weight</code> is a vector, too - <em>the
 columns of data we load into R data.frames are all vectors</em>, and
 that’s the root of why R forces everything in a column to be the same
 basic data type.</p>
@@ -632,19 +633,19 @@ to look like, type coercion may well be to blame; make sure everything
 is the same type in your vectors and your columns of data.frames, or you
 will get nasty surprises!</p>
 <p>But coercion can also be very useful! For example, in our
-<code>cats</code> data <code>likes_string</code> is numeric, but we know
+<code>rats</code> data <code>likes_cheese</code> is numeric, but we know
 that the 1s and 0s actually represent <code>TRUE</code> and
 <code>FALSE</code> (a common way of representing them). We should use
 the <code>logical</code> datatype here, which has two states:
 <code>TRUE</code> or <code>FALSE</code>, which is exactly what our data
 represents. We can ‘coerce’ this column to be <code>logical</code> by
 using the <code>as.logical</code> function:</p>
-<pre><code>cats$likes_string</code></pre>
+<pre><code>rats$likes_cheese</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] 1 0 1</code></pre>
 <p>{: .output}</p>
-<pre><code>cats$likes_string &lt;- as.logical(cats$likes_string)
-cats$likes_string</code></pre>
+<pre><code>rats$likes_cheese &lt;- as.logical(rats$likes_cheese)
+rats$likes_cheese</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1]  TRUE FALSE  TRUE</code></pre>
 <p>{: .output}</p>
@@ -724,45 +725,47 @@ there is a built in vector called <code>LETTERS</code>)</p>
 <pre><code>x &lt;- 1:26
 x &lt;- x * 2
 names(x) &lt;- LETTERS</code></pre>
-<p>{: .language-r} {: .solution} {: .challenge}</p>
+<p>{: .language-r}</p>
+<p>{: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
 <p>We said that columns in data.frames were vectors:</p>
-<pre><code>str(cats$weight)</code></pre>
+<pre><code>str(rats$weight)</code></pre>
 <p>{: .language-r}</p>
 <pre><code> num [1:3] 2.1 5 3.2</code></pre>
 <p>{: .output}</p>
-<pre><code>str(cats$likes_string)</code></pre>
+<pre><code>str(rats$likes_cheese)</code></pre>
 <p>{: .language-r}</p>
 <pre><code> logi [1:3] TRUE FALSE TRUE</code></pre>
 <p>{: .output}</p>
 <p>These make sense. But what about</p>
-<pre><code>str(cats$coat)</code></pre>
+<pre><code>str(rats$coat)</code></pre>
 <p>{: .language-r}</p>
-<pre><code> Factor w/ 3 levels &quot;black&quot;,&quot;calico&quot;,..: 2 1 3</code></pre>
+<pre><code> Factor w/ 2 levels &quot;hairless&quot;,&quot;white&quot;: 2 2 1</code></pre>
 <p>{: .output}</p>
 <blockquote>
 <h2 id="tip-renaming-data-frame-columns">Tip: Renaming data frame
 columns</h2>
 <p>Data frames have column names, which can be accessed with the
 <code>names()</code> function.</p>
-<pre><code>names(cats)</code></pre>
+<pre><code>names(rats)</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] &quot;coat&quot;         &quot;weight&quot;       &quot;likes_string&quot;</code></pre>
+<pre><code>[1] &quot;coat&quot;         &quot;weight&quot;       &quot;likes_cheese&quot;</code></pre>
 <p>{: .output}</p>
-<p>If you want to rename the second column of <code>cats</code>, you can
-assign a new name to the second element of <code>names(cats)</code>.</p>
-<pre><code>names(cats)[2] &lt;- &quot;weight_kg&quot;
-cats</code></pre>
+<p>If you want to rename the second column of <code>rats</code>, you can
+assign a new name to the second element of <code>names(rats)</code>.</p>
+<pre><code>names(rats)[2] &lt;- &quot;weight_kg&quot;
+rats</code></pre>
 <p>{: .language-r}</p>
-<pre><code>    coat weight_kg likes_string
-1 calico       2.1         TRUE
-2  black       5.0        FALSE
-3  tabby       3.2         TRUE</code></pre>
-<p>{: .output} {: .callout}</p>
+<pre><code>      coat weight_kg likes_cheese
+1    white       2.1         TRUE
+2    white       5.0        FALSE
+3 hairless       3.2         TRUE</code></pre>
+<p>{: .output}</p>
+<p>{: .callout}</p>
 </blockquote>
 </div>
 <div id="factors" class="section level2">
@@ -770,26 +773,25 @@ cats</code></pre>
 <p>Another important data structure is called a <em>factor</em>. Factors
 usually look like character data, but are typically used to represent
 categorical information. For example, let’s make a vector of strings
-labelling cat colorations for all the cats in our study:</p>
-<pre><code>coats &lt;- c(&#39;tabby&#39;, &#39;tortoiseshell&#39;, &#39;tortoiseshell&#39;, &#39;black&#39;, &#39;tabby&#39;)
+labelling cat colorations for all the rats in our study:</p>
+<pre><code>coats &lt;- c(&#39;white&#39;, &#39;white&#39;, &#39;hairless&#39;, &#39;hairless&#39;, &#39;white&#39;)
 coats</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] &quot;tabby&quot;         &quot;tortoiseshell&quot; &quot;tortoiseshell&quot; &quot;black&quot;        
-[5] &quot;tabby&quot;        </code></pre>
+<pre><code>[1] &quot;white&quot;    &quot;white&quot;    &quot;hairless&quot; &quot;hairless&quot; &quot;white&quot;   </code></pre>
 <p>{: .output}</p>
 <pre><code>str(coats)</code></pre>
 <p>{: .language-r}</p>
-<pre><code> chr [1:5] &quot;tabby&quot; &quot;tortoiseshell&quot; &quot;tortoiseshell&quot; &quot;black&quot; &quot;tabby&quot;</code></pre>
+<pre><code> chr [1:5] &quot;white&quot; &quot;white&quot; &quot;hairless&quot; &quot;hairless&quot; &quot;white&quot;</code></pre>
 <p>{: .output}</p>
 <p>We can turn a vector into a factor like so:</p>
-<pre><code>CATegories &lt;- factor(coats)
-class(CATegories)</code></pre>
+<pre><code>categories &lt;- factor(coats)
+class(categories)</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;factor&quot;</code></pre>
 <p>{: .output}</p>
-<pre><code>str(CATegories)</code></pre>
+<pre><code>str(categories)</code></pre>
 <p>{: .language-r}</p>
-<pre><code> Factor w/ 3 levels &quot;black&quot;,&quot;tabby&quot;,..: 2 3 3 1 2</code></pre>
+<pre><code> Factor w/ 2 levels &quot;hairless&quot;,&quot;white&quot;: 2 2 1 1 2</code></pre>
 <p>{: .output}</p>
 <p>Now R has noticed that there are three possible categories in our
 data - but it also did something surprising; instead of printing out the
@@ -801,27 +803,27 @@ representations for categorical data:</p>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <p>{: .output}</p>
-<pre><code>typeof(CATegories)</code></pre>
+<pre><code>typeof(categories)</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>{: .output}</p>
 <blockquote>
 <h2 id="challenge-2">Challenge 2</h2>
-<p>Is there a factor in our <code>cats</code> data.frame? what is its
+<p>Is there a factor in our <code>rats</code> data.frame? what is its
 name? Try using <code>?read.csv</code> to figure out how to keep text
 columns as character vectors instead of factors; then write a command or
-two to show that the factor in <code>cats</code> is actually a character
+two to show that the factor in <code>rats</code> is actually a character
 vector when loaded in this way.</p>
 <blockquote>
 <h2 id="solution-to-challenge-2">Solution to Challenge 2</h2>
 <p>One solution is use the argument <code>stringAsFactors</code>:</p>
-<pre><code>cats &lt;- read.csv(file=&quot;data/feline-data.csv&quot;, stringsAsFactors=FALSE)
-str(cats$coat)</code></pre>
+<pre><code>rats &lt;- read.csv(file=&quot;data/rats-data.csv&quot;, stringsAsFactors=FALSE)
+str(rats$coat)</code></pre>
 <p>{: .language-r}</p>
 <p>Another solution is use the argument <code>colClasses</code> that
 allow finer control.</p>
-<pre><code>cats &lt;- read.csv(file=&quot;data/feline-data.csv&quot;, colClasses=c(NA, NA, &quot;character&quot;))
-str(cats$coat)</code></pre>
+<pre><code>rats &lt;- read.csv(file=&quot;data/rats-data.csv&quot;, colClasses=c(NA, NA, &quot;character&quot;))
+str(rats$coat)</code></pre>
 <p>{: .language-r}</p>
 <p>Note: new students find the help files difficult to understand; make
 sure to let them know that this is typical, and encourage them to take
@@ -879,7 +881,7 @@ $data
 <p>{: .output}</p>
 <p>We can now understand something a bit surprising in our data.frame;
 what happens if we run:</p>
-<pre><code>typeof(cats)</code></pre>
+<pre><code>typeof(rats)</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;list&quot;</code></pre>
 <p>{: .output}</p>
@@ -890,120 +892,127 @@ and factors, the data.frame needs something a bit more flexible than a
 vector to put all the columns together into a familiar table. In other
 words, a <code>data.frame</code> is a special list in which all the
 vectors must have the same length.</p>
-<p>In our <code>cats</code> example, we have an integer, a double and a
+<p>In our <code>rats</code> example, we have an integer, a double and a
 logical variable. As we have seen already, each column of data.frame is
 a vector.</p>
-<pre><code>cats$coat</code></pre>
+<pre><code>rats$coat</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico black  tabby 
-Levels: black calico tabby</code></pre>
+<pre><code>[1] white    white    hairless
+Levels: hairless white</code></pre>
 <p>{: .output}</p>
-<pre><code>cats[,1]</code></pre>
+<pre><code>rats[,1]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico black  tabby 
-Levels: black calico tabby</code></pre>
+<pre><code>[1] white    white    hairless
+Levels: hairless white</code></pre>
 <p>{: .output}</p>
-<pre><code>typeof(cats[,1])</code></pre>
+<pre><code>typeof(rats[,1])</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <p>{: .output}</p>
-<pre><code>str(cats[,1])</code></pre>
+<pre><code>str(rats[,1])</code></pre>
 <p>{: .language-r}</p>
-<pre><code> Factor w/ 3 levels &quot;black&quot;,&quot;calico&quot;,..: 2 1 3</code></pre>
+<pre><code> Factor w/ 2 levels &quot;hairless&quot;,&quot;white&quot;: 2 2 1</code></pre>
 <p>{: .output}</p>
 <p>Each row is an <em>observation</em> of different variables, itself a
 data.frame, and thus can be composed of elements of different types.</p>
-<pre><code>cats[1,]</code></pre>
+<pre><code>rats[1,]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>    coat weight likes_string
-1 calico    2.1            1</code></pre>
+<pre><code>   coat weight likes_cheese
+1 white    2.1            1</code></pre>
 <p>{: .output}</p>
-<pre><code>typeof(cats[1,])</code></pre>
+<pre><code>typeof(rats[1,])</code></pre>
 <p>{: .language-r}</p>
 <pre><code>[1] &quot;list&quot;</code></pre>
 <p>{: .output}</p>
-<pre><code>str(cats[1,])</code></pre>
+<pre><code>str(rats[1,])</code></pre>
 <p>{: .language-r}</p>
 <pre><code>&#39;data.frame&#39;:   1 obs. of  3 variables:
- $ coat        : Factor w/ 3 levels &quot;black&quot;,&quot;calico&quot;,..: 2
+ $ coat        : Factor w/ 2 levels &quot;hairless&quot;,&quot;white&quot;: 2
  $ weight      : num 2.1
- $ likes_string: num 1</code></pre>
+ $ likes_cheese: num 1</code></pre>
 <p>{: .output}</p>
 <blockquote>
 <h2 id="challenge-3">Challenge 3</h2>
 <p>There are several subtly different ways to call variables,
 observations and elements from data.frames:</p>
 <ul>
-<li><code>cats[1]</code></li>
-<li><code>cats[[1]]</code></li>
-<li><code>cats$coat</code></li>
-<li><code>cats[&quot;coat&quot;]</code></li>
-<li><code>cats[1, 1]</code></li>
-<li><code>cats[, 1]</code></li>
-<li><code>cats[1, ]</code></li>
+<li><code>rats[1]</code></li>
+<li><code>rats[[1]]</code></li>
+<li><code>rats$coat</code></li>
+<li><code>rats[&quot;coat&quot;]</code></li>
+<li><code>rats[1, 1]</code></li>
+<li><code>rats[, 1]</code></li>
+<li><code>rats[1, ]</code></li>
 </ul>
 <p>Try out these examples and explain what is returned by each one.</p>
 <p><em>Hint:</em> Use the function <code>typeof()</code> to examine what
 is returned in each case.</p>
 <blockquote>
 <h2 id="solution-to-challenge-3">Solution to Challenge 3</h2>
-<pre><code>cats[1]</code></pre>
+<pre><code>rats[1]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>    coat
-1 calico
-2  black
-3  tabby</code></pre>
-<p>{: .output} We can think of a data frame as a list of vectors. The
-single brace <code>[1]</code> returns the first slice of the list, as
-another list. In this case it is the first column of the data frame.</p>
-<pre><code>cats[[1]]</code></pre>
+<pre><code>      coat
+1    white
+2    white
+3 hairless</code></pre>
+<p>{: .output}</p>
+<p>We can think of a data frame as a list of vectors. The single brace
+<code>[1]</code> returns the first slice of the list, as another list.
+In this case it is the first column of the data frame.</p>
+<pre><code>rats[[1]]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico black  tabby 
-Levels: black calico tabby</code></pre>
-<p>{: .output} The double brace <code>[[1]]</code> returns the contents
-of the list item. In this case it is the contents of the first column, a
+<pre><code>[1] white    white    hairless
+Levels: hairless white</code></pre>
+<p>{: .output}</p>
+<p>The double brace <code>[[1]]</code> returns the contents of the list
+item. In this case it is the contents of the first column, a
 <em>vector</em> of type <em>factor</em>.</p>
-<pre><code>cats$coat</code></pre>
+<pre><code>rats$coat</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico black  tabby 
-Levels: black calico tabby</code></pre>
-<p>{: .output} This example uses the <code>$</code> character to address
-items by name. <em>coat</em> is the first column of the data frame,
-again a <em>vector</em> of type <em>factor</em>.</p>
-<pre><code>cats[&quot;coat&quot;]</code></pre>
+<pre><code>[1] white    white    hairless
+Levels: hairless white</code></pre>
+<p>{: .output}</p>
+<p>This example uses the <code>$</code> character to address items by
+name. <em>coat</em> is the first column of the data frame, again a
+<em>vector</em> of type <em>factor</em>.</p>
+<pre><code>rats[&quot;coat&quot;]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>    coat
-1 calico
-2  black
-3  tabby</code></pre>
-<p>{: .output} Here we are using a single brace <code>[&quot;coat&quot;]</code>
-replacing the index number with the column name. Like example 1, the
-returned object is a <em>list</em>.</p>
-<pre><code>cats[1, 1]</code></pre>
+<pre><code>      coat
+1    white
+2    white
+3 hairless</code></pre>
+<p>{: .output}</p>
+<p>Here we are using a single brace <code>[&quot;coat&quot;]</code> replacing the
+index number with the column name. Like example 1, the returned object
+is a <em>list</em>.</p>
+<pre><code>rats[1, 1]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico
-Levels: black calico tabby</code></pre>
-<p>{: .output} This example uses a single brace, but this time we
-provide row and column coordinates. The returned object is the value in
-row 1, column 1. The object is an <em>integer</em> but because it is
-part of a <em>vector</em> of type <em>factor</em>, R displays the label
-“calico” associated with the integer value.</p>
-<pre><code>cats[, 1]</code></pre>
+<pre><code>[1] white
+Levels: hairless white</code></pre>
+<p>{: .output}</p>
+<p>This example uses a single brace, but this time we provide row and
+column coordinates. The returned object is the value in row 1, column 1.
+The object is an <em>integer</em> but because it is part of a
+<em>vector</em> of type <em>factor</em>, R displays the label “calico”
+associated with the integer value.</p>
+<pre><code>rats[, 1]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>[1] calico black  tabby 
-Levels: black calico tabby</code></pre>
-<p>{: .output} Like the previous example we use single braces and
-provide row and column coordinates. The row coordinate is not specified,
-R interprets this missing value as all the elements in this
-<em>column</em> <em>vector</em>.</p>
-<pre><code>cats[1, ]</code></pre>
+<pre><code>[1] white    white    hairless
+Levels: hairless white</code></pre>
+<p>{: .output}</p>
+<p>Like the previous example we use single braces and provide row and
+column coordinates. The row coordinate is not specified, R interprets
+this missing value as all the elements in this <em>column</em>
+<em>vector</em>.</p>
+<pre><code>rats[1, ]</code></pre>
 <p>{: .language-r}</p>
-<pre><code>    coat weight likes_string
-1 calico    2.1            1</code></pre>
-<p>{: .output} Again we use the single brace with row and column
-coordinates. The column coordinate is not specified. The return value is
-a <em>list</em> containing all the values in the first row. {:
-.solution} {: .challenge}</p>
+<pre><code>   coat weight likes_cheese
+1 white    2.1            1</code></pre>
+<p>{: .output}</p>
+<p>Again we use the single brace with row and column coordinates. The
+column coordinate is not specified. The return value is a <em>list</em>
+containing all the values in the first row. {: .solution} {:
+.challenge}</p>
 </blockquote>
 </blockquote>
 </div>
@@ -1080,7 +1089,8 @@ figure out how to change this. (hint: read the documentation for
 <code>matrix</code>!)</p>
 <pre><code>x &lt;- matrix(1:50, ncol=5, nrow=10)
 x &lt;- matrix(1:50, ncol=5, nrow=10, byrow = TRUE) # to fill by row</code></pre>
-<p>{: .language-r} {: .solution} {: .challenge}</p>
+<p>{: .language-r}</p>
+<p>{: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 <blockquote>
@@ -1098,10 +1108,11 @@ data structures we’ve seen so far.</p>
 <pre><code>dataTypes &lt;- c(&#39;double&#39;, &#39;complex&#39;, &#39;integer&#39;, &#39;character&#39;, &#39;logical&#39;)
 dataStructures &lt;- c(&#39;data.frame&#39;, &#39;vector&#39;, &#39;factor&#39;, &#39;list&#39;, &#39;matrix&#39;)
 answer &lt;- list(dataTypes, dataStructures)</code></pre>
-<p>{: .language-r} Note: it’s nice to make a list in big writing on the
-board or taped to the wall listing all of these types and structures -
-leave it up for the rest of the workshop to remind people of the
-importance of these basics.</p>
+<p>{: .language-r}</p>
+<p>Note: it’s nice to make a list in big writing on the board or taped
+to the wall listing all of these types and structures - leave it up for
+the rest of the workshop to remind people of the importance of these
+basics.</p>
 <p>{: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
@@ -1112,9 +1123,10 @@ importance of these basics.</p>
 [1,]    4    1
 [2,]    9    5
 [3,]   10    7</code></pre>
-<p>{: .output} What was the correct command used to write this matrix?
-Examine each command and try to figure out the correct one before typing
-them. Think about what matrices the other commands will produce.</p>
+<p>{: .output}</p>
+<p>What was the correct command used to write this matrix? Examine each
+command and try to figure out the correct one before typing them. Think
+about what matrices the other commands will produce.</p>
 <ol style="list-style-type: decimal">
 <li><code>matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)</code></li>
 <li><code>matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)</code></li>
@@ -1128,11 +1140,13 @@ them. Think about what matrices the other commands will produce.</p>
 [1,]    4    1
 [2,]    9    5
 [3,]   10    7</code></pre>
-<p>{: .output} What was the correct command used to write this matrix?
-Examine each command and try to figure out the correct one before typing
-them. Think about what matrices the other commands will produce.</p>
+<p>{: .output}</p>
+<p>What was the correct command used to write this matrix? Examine each
+command and try to figure out the correct one before typing them. Think
+about what matrices the other commands will produce.</p>
 <pre><code>matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></pre>
-<p>{: .language-r} {: .solution} {: .challenge}</p>
+<p>{: .language-r}</p>
+<p>{: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 </div>
