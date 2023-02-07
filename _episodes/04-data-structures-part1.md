@@ -17,84 +17,91 @@ keypoints:
 - "The basic data types in R are double, integer, complex, logical, and character."
 - "Use factors to represent categories in R."
 source: Rmd
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 
 
-One of R's most powerful features is its ability to deal with tabular data -
-such as you may already have in a spreadsheet or a CSV file. Let's start by
-making a toy dataset in your `data/` directory, called `feline-data.csv`:
+One of R's most powerful features is its ability to deal with tabular
+data - such as you may already have in a spreadsheet or a CSV file.
+Let's start by **making a toy dataset** in your `data/` directory,
+called `rats-data.csv`:
 
 
 ~~~
-cats <- data.frame(coat = c("calico", "black", "tabby"),
-                    weight = c(2.1, 5.0, 3.2),
-                    likes_string = c(1, 0, 1))
-~~~
-{: .language-r}
-
-We can now save `cats` as a CSV file. It is good practice to call the argument 
-names explicitly so the function knows what default values you are changing. Here we 
-are setting `row.names = FALSE`. Recall you can use `?write.csv` to pull
-up the help file to check out the argument names and their default values. 
-
-~~~
-write.csv(x = cats, file = "data/feline-data.csv", row.names = FALSE)
+rats <- data.frame(coat = factor(c("white", "white", "hairless")),
+                   weight = c(2.1, 5.0, 3.2),
+                   likes_cheese = c(1, 0, 1))
 ~~~
 {: .language-r}
 
-The contents of the new file, `feline-data.csv`:
+We can now save `rats` as a CSV file. It is good practice to call the
+argument names explicitly so the function knows what default values you
+are changing. Here we are setting `row.names = FALSE`. Recall you can
+use `?write.csv` to pull up the help file to check out the argument
+names and their default values.
+
 
 ~~~
-coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1
+write.csv(x = rats, file = "data/rats-data.csv", row.names = FALSE)
+~~~
+{: .language-r}
+
+The contents of the new file, `rats-data.csv`:
+
+
+~~~
+coat,weight,likes_cheese
+white,2.1,1
+white,5.0,0
+hairless,3.2,1
 ~~~
 {: .language-r}
 
 > ## Tip: Editing Text files in R
 >
-> Alternatively, you can create `data/feline-data.csv` using a text editor (Nano),
-> or within RStudio with the **File -> New File -> Text File** menu item.
-{: .callout}
+> Alternatively, you can create `data/rats-data.csv` using a text editor
+> (Nano), or within RStudio with the **File -\> New File -\> Text File**
+> menu item. {: .callout}
 
 We can load this into R via the following:
 
 
 ~~~
-cats <- read.csv(file = "data/feline-data.csv", stringsAsFactors = TRUE)
-cats
+rats <- read.csv(file = "data/rats-data.csv", stringsAsFactors = TRUE)
+rats
 ~~~
 {: .language-r}
 
 
 
 ~~~
-    coat weight likes_string
-1 calico    2.1            1
-2  black    5.0            0
-3  tabby    3.2            1
+      coat weight likes_cheese
+1    white    2.1            1
+2    white    5.0            0
+3 hairless    3.2            1
 ~~~
 {: .output}
 
-The `read.table` function is used for reading in tabular data stored in a text
-file where the columns of data are separated by punctuation characters such as
-CSV files (csv = comma-separated values). Tabs and commas are the most common
-punctuation characters used to separate or delimit data points in csv files.
-For convenience R provides 2 other versions of `read.table`. These are: `read.csv`
-for files where the data are separated with commas and `read.delim` for files
-where the data are separated with tabs. Of these three functions `read.csv` is
-the most commonly used.  If needed it is possible to override the default
+The `read.table` function is used for reading in tabular data stored in
+a text file where the columns of data are separated by punctuation
+characters such as CSV files (csv = comma-separated values). Tabs and
+commas are the most common punctuation characters used to separate or
+delimit data points in csv files. For convenience R provides 2 other
+versions of `read.table`. These are: `read.csv` for files where the data
+are separated with commas and `read.delim` for files where the data are
+separated with tabs. Of these three functions `read.csv` is the most
+commonly used. If needed it is possible to override the default
 delimiting punctuation marks for both `read.csv` and `read.delim`.
 
-
-We can begin exploring our dataset right away, pulling out columns by specifying
-them using the `$` operator:
+We can begin exploring our dataset right away, pulling out columns by
+specifying them using the `$` operator:
 
 
 ~~~
-cats$weight
+rats$weight
 ~~~
 {: .language-r}
 
@@ -108,15 +115,15 @@ cats$weight
 
 
 ~~~
-cats$coat
+rats$coat
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] calico black  tabby 
-Levels: black calico tabby
+[1] white    white    hairless
+Levels: hairless white
 ~~~
 {: .output}
 
@@ -125,7 +132,7 @@ We can do other operations on the columns:
 
 ~~~
 ## Say we discovered that the scale weighs two Kg light:
-cats$weight + 2
+rats$weight + 2
 ~~~
 {: .language-r}
 
@@ -139,14 +146,14 @@ cats$weight + 2
 
 
 ~~~
-paste("My cat is", cats$coat)
+paste("My rat is", rats$coat)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "My cat is calico" "My cat is black"  "My cat is tabby" 
+[1] "My rat is white"    "My rat is white"    "My rat is hairless"
 ~~~
 {: .output}
 
@@ -154,14 +161,14 @@ But what about
 
 
 ~~~
-cats$weight + cats$coat
+rats$weight + rats$coat
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Warning in Ops.factor(cats$weight, cats$coat): '+' not meaningful for factors
+Warning in Ops.factor(rats$weight, rats$coat): '+' not meaningful for factors
 ~~~
 {: .warning}
 
@@ -172,18 +179,19 @@ Warning in Ops.factor(cats$weight, cats$coat): '+' not meaningful for factors
 ~~~
 {: .output}
 
-Understanding what happened here is key to successfully analyzing data in R.
+Understanding what happened here is key to successfully analyzing data
+in R.
 
 ## Data Types
 
-If you guessed that the last command will return an error because `2.1` plus
-`"black"` is nonsense, you're right - and you already have some intuition for an
-important concept in programming called *data types*. We can ask what type of
-data something is:
+If you guessed that the last command will return an error because `2.1`
+plus `"white"` is nonsense, you're right - and you already have some
+intuition for an important concept in programming called *data types*.
+We can ask what type of data something is:
 
 
 ~~~
-typeof(cats$weight)
+typeof(rats$weight)
 ~~~
 {: .language-r}
 
@@ -194,7 +202,8 @@ typeof(cats$weight)
 ~~~
 {: .output}
 
-There are 5 main types: `double`, `integer`, `complex`, `logical` and `character`.
+There are 5 main types: `double`, `integer`, `complex`, `logical` and
+`character`.
 
 
 ~~~
@@ -265,97 +274,84 @@ typeof('banana')
 ~~~
 {: .output}
 
-No matter how
-complicated our analyses become, all data in R is interpreted as one of these
-basic data types. This strictness has some really important consequences.
+No matter how complicated our analyses become, all data in R is
+interpreted as one of these basic data types. This strictness has some
+really important consequences.
 
-A user has added details of another cat. This information is in the file
-`data/feline-data_v2.csv`.
-
-
-
-~~~
-file.show("data/feline-data_v2.csv")
-~~~
-{: .language-r}
+A lab technician has added details of another rat. This information is
+in the file `data/rats-data_v2.csv`.
 
 
 ~~~
-coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1
-tabby,2.3 or 2.4,1
-~~~
-{: .language-r}
-
-Load the new cats data like before, and check what type of data we find in the
-`weight` column:
-
-
-~~~
-cats <- read.csv(file="data/feline-data_v2.csv", stringsAsFactors = TRUE)
+file.show("data/rats-data_v2.csv")
 ~~~
 {: .language-r}
 
 
+~~~
+coat,weight,likes_cheese
+white,2.1,1
+white,5.0,0
+hairless,3.2,1
+hairless,2.3 or 2.4,1
+~~~
+{: .language-r}
+
+Load the new rats data like before, and check what type of data we find
+in the `weight` column:
+
 
 ~~~
-Warning in file(file, "rt"): cannot open file 'data/feline-data_v2.csv': No such
-file or directory
+rats <- read.csv(file="data/rats-data_v2.csv", stringsAsFactors = TRUE)
+typeof(rats$weight)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "integer"
+~~~
+{: .output}
+
+Oh no, our weights aren't the double type anymore! If we try to do the
+same math we did on them before, we run into trouble:
+
+
+~~~
+rats$weight + 2
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in Ops.factor(rats$weight, 2): '+' not meaningful for factors
 ~~~
 {: .warning}
 
 
 
 ~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
-
-
-
-~~~
-typeof(cats$weight)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "double"
+[1] NA NA NA NA
 ~~~
 {: .output}
 
-Oh no, our weights aren't the double type anymore! If we try to do the same math
-we did on them before, we run into trouble:
+What happened? The `rats` data we are working with is something called a
+*data frame*. Data frames are one of the most common and versatile types
+of *data structures* we will work with in R. In this example, the
+columns that make up the data frame cannot be composed of different data
+types. In this case, R does not read everything in the data frame as a
+*double*, therefore the entire column data type changes to something
+that is suitable for everything in the column.
+
+When R reads a csv file, it reads it in as a *data frame*. Thus, when we
+loaded the `rats` csv file, it is stored as a data frame. We can check
+this by using the function `class()`.
 
 
 ~~~
-cats$weight + 2
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 4.1 7.0 5.2
-~~~
-{: .output}
-
-What happened? 
-The `cats` data we are working with is something called a *data frame*. Data frames
-are one of the most common and versatile types of *data structures* we will work with in R.
-In this example, the columns that make up the data frame cannot be composed of different data types.
-In this case, R does not read everything in the data frame as a *double*, therefore the entire 
-column data type changes to something that is suitable for everything in the column.
-
-When R reads a csv file, it reads it in as a *data frame*. Thus, when we loaded the `cats`
-csv file, it is stored as a data frame. We can check this by using the function `class()`.
-
-
-~~~
-class(cats)
+class(rats)
 ~~~
 {: .language-r}
 
@@ -365,39 +361,38 @@ class(cats)
 [1] "data.frame"
 ~~~
 {: .output}
-*Data frames* are composed of rows and columns, where each column has the 
-same number of rows. Different columns in a data frame can be made up of different 
-data types (this is what makes them so versatile), but everything in a given
-column needs to be the same type (e.g., vector, factor, or list).
 
-Let's explore more about different data structures and how they behave. 
-For now, let's remove that extra line from our cats data and reload it, 
+*Data frames* are composed of rows and columns, where each column has
+the same number of rows. Different columns in a data frame can be made
+up of different data types (this is what makes them so versatile), but
+everything in a given column needs to be the same type (e.g., vector,
+factor, or list).
+
+Let's explore more about different data structures and how they behave.
+For now, let's remove that extra line from our rats data and reload it,
 while we investigate this behavior further:
 
-feline-data.csv:
+rats-data.csv:
 
-```
-coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1
-```
+    coat,weight,likes_cheese
+    white,2.1,1
+    white,5.0,0
+    hairless,3.2,1
 
 And back in RStudio:
 
 
 ~~~
-cats <- read.csv(file="data/feline-data.csv", stringsAsFactors = TRUE)
+rats <- read.csv(file="data/rats-data.csv", stringsAsFactors = TRUE)
 ~~~
 {: .language-r}
 
 
 
-
 ## Vectors and Type Coercion
 
-To better understand this behavior, let's meet another of the data structures:
-the *vector*.
+To better understand this behavior, let's meet another of the data
+structures: the *vector*.
 
 
 ~~~
@@ -414,10 +409,9 @@ my_vector
 {: .output}
 
 A vector in R is essentially an ordered list of things, with the special
-condition that *everything in the vector must be the same basic data type*. If
-you don't choose the datatype, it'll default to `logical`; or, you can declare
-an empty vector of whatever type you like.
-
+condition that *everything in the vector must be the same basic data
+type*. If you don't choose the datatype, it'll default to `logical`; or,
+you can declare an empty vector of whatever type you like.
 
 
 ~~~
@@ -448,15 +442,15 @@ str(another_vector)
 ~~~
 {: .output}
 
-The somewhat cryptic output from this command indicates the basic data type
-found in this vector - in this case `chr`, character; an indication of the
-number of things in the vector - actually, the indexes of the vector, in this
-case `[1:3]`; and a few examples of what's actually in the vector - in this case
-empty character strings. If we similarly do
+The somewhat cryptic output from this command indicates the basic data
+type found in this vector - in this case `chr`, character; an indication
+of the number of things in the vector - actually, the indexes of the
+vector, in this case `[1:3]`; and a few examples of what's actually in
+the vector - in this case empty character strings. If we similarly do
 
 
 ~~~
-str(cats$weight)
+str(rats$weight)
 ~~~
 {: .language-r}
 
@@ -467,27 +461,27 @@ str(cats$weight)
 ~~~
 {: .output}
 
-we see that `cats$weight` is a vector, too - *the columns of data we load into R
-data.frames are all vectors*, and that's the root of why R forces everything in
-a column to be the same basic data type.
+we see that `rats$weight` is a vector, too - *the columns of data we
+load into R data.frames are all vectors*, and that's the root of why R
+forces everything in a column to be the same basic data type.
 
 > ## Discussion 1
 >
-> Why is R so opinionated about what we put in our columns of data?
-> How does this help us?
+> Why is R so opinionated about what we put in our columns of data? How
+> does this help us?
 >
 > > ## Discussion 1
 > >
-> > By keeping everything in a column the same, we allow ourselves to make simple
-> > assumptions about our data; if you can interpret one entry in the column as a
-> > number, then you can interpret *all* of them as numbers, so we don't have to
-> > check every time. This consistency is what people mean when they talk about
-> > *clean data*; in the long run, strict consistency goes a long way to making
-> > our lives easier in R.
-> {: .solution}
-{: .discussion}
+> > By keeping everything in a column the same, we allow ourselves to
+> > make simple assumptions about our data; if you can interpret one
+> > entry in the column as a number, then you can interpret *all* of
+> > them as numbers, so we don't have to check every time. This
+> > consistency is what people mean when they talk about *clean data*;
+> > in the long run, strict consistency goes a long way to making our
+> > lives easier in R. {: .solution} {: .discussion}
 
-You can also make vectors with explicit contents with the combine function:
+You can also make vectors with explicit contents with the combine
+function:
 
 
 ~~~
@@ -503,7 +497,8 @@ combine_vector
 ~~~
 {: .output}
 
-Given what we've learned so far, what do you think the following will produce?
+Given what we've learned so far, what do you think the following will
+produce?
 
 
 ~~~
@@ -511,11 +506,11 @@ quiz_vector <- c(2,6,'3')
 ~~~
 {: .language-r}
 
-This is something called *type coercion*, and it is the source of many surprises
-and the reason why we need to be aware of the basic data types and how R will
-interpret them. When R encounters a mix of types (here numeric and character) to
-be combined into a single vector, it will force them all to be the same
-type. Consider:
+This is something called *type coercion*, and it is the source of many
+surprises and the reason why we need to be aware of the basic data types
+and how R will interpret them. When R encounters a mix of types (here
+numeric and character) to be combined into a single vector, it will
+force them all to be the same type. Consider:
 
 
 ~~~
@@ -546,9 +541,10 @@ another_coercion_vector
 ~~~
 {: .output}
 
-The coercion rules go: `logical` -> `integer` -> `numeric` -> `complex` ->
-`character`, where -> can be read as *are transformed into*. You can try to
-force coercion against this flow using the `as.` functions:
+The coercion rules go: `logical` -\> `integer` -\> `numeric` -\>
+`complex` -\> `character`, where -\> can be read as *are transformed
+into*. You can try to force coercion against this flow using the `as.`
+functions:
 
 
 ~~~
@@ -594,22 +590,23 @@ numeric_coerced_to_logical
 ~~~
 {: .output}
 
-As you can see, some surprising things can happen when R forces one basic data
-type into another! Nitty-gritty of type coercion aside, the point is: if your
-data doesn't look like what you thought it was going to look like, type coercion
-may well be to blame; make sure everything is the same type in your vectors and
-your columns of data.frames, or you will get nasty surprises!
+As you can see, some surprising things can happen when R forces one
+basic data type into another! Nitty-gritty of type coercion aside, the
+point is: if your data doesn't look like what you thought it was going
+to look like, type coercion may well be to blame; make sure everything
+is the same type in your vectors and your columns of data.frames, or you
+will get nasty surprises!
 
-But coercion can also be very useful! For example, in our `cats` data
-`likes_string` is numeric, but we know that the 1s and 0s actually represent
-`TRUE` and `FALSE` (a common way of representing them). We should use the
-`logical` datatype here, which has two states: `TRUE` or `FALSE`, which is
-exactly what our data represents. We can 'coerce' this column to be `logical` by
-using the `as.logical` function:
+But coercion can also be very useful! For example, in our `rats` data
+`likes_cheese` is numeric, but we know that the 1s and 0s actually
+represent `TRUE` and `FALSE` (a common way of representing them). We
+should use the `logical` datatype here, which has two states: `TRUE` or
+`FALSE`, which is exactly what our data represents. We can 'coerce' this
+column to be `logical` by using the `as.logical` function:
 
 
 ~~~
-cats$likes_string
+rats$likes_cheese
 ~~~
 {: .language-r}
 
@@ -623,8 +620,8 @@ cats$likes_string
 
 
 ~~~
-cats$likes_string <- as.logical(cats$likes_string)
-cats$likes_string
+rats$likes_cheese <- as.logical(rats$likes_cheese)
+rats$likes_cheese
 ~~~
 {: .language-r}
 
@@ -635,7 +632,8 @@ cats$likes_string
 ~~~
 {: .output}
 
-The combine function, `c()`, will also append things to an existing vector:
+The combine function, `c()`, will also append things to an existing
+vector:
 
 
 ~~~
@@ -822,9 +820,9 @@ names(my_example)
 
 > ## Challenge 1
 >
-> Start by making a vector with the numbers 1 through 26.
-> Multiply the vector by 2, and give the resulting vector
-> names A through Z (hint: there is a built in vector called `LETTERS`)
+> Start by making a vector with the numbers 1 through 26. Multiply the
+> vector by 2, and give the resulting vector names A through Z (hint:
+> there is a built in vector called `LETTERS`)
 >
 > > ## Solution to Challenge 1
 > >
@@ -835,9 +833,8 @@ names(my_example)
 > > names(x) <- LETTERS
 > > ~~~
 > > {: .language-r}
-> {: .solution}
-{: .challenge}
-
+> >
+> > {: .solution} {: .challenge}
 
 ## Data Frames
 
@@ -845,7 +842,7 @@ We said that columns in data.frames were vectors:
 
 
 ~~~
-str(cats$weight)
+str(rats$weight)
 ~~~
 {: .language-r}
 
@@ -859,7 +856,7 @@ str(cats$weight)
 
 
 ~~~
-str(cats$likes_string)
+str(rats$likes_cheese)
 ~~~
 {: .language-r}
 
@@ -874,65 +871,69 @@ These make sense. But what about
 
 
 ~~~
-str(cats$coat)
+str(rats$coat)
 ~~~
 {: .language-r}
 
 
 
 ~~~
- Factor w/ 3 levels "black","calico",..: 2 1 3
+ Factor w/ 2 levels "hairless","white": 2 2 1
 ~~~
 {: .output}
 
 > ## Tip: Renaming data frame columns
 >
-> Data frames have column names, which can be accessed with the `names()` function.
+> Data frames have column names, which can be accessed with the
+> `names()` function.
 >
 > 
 > ~~~
-> names(cats)
+> names(rats)
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> [1] "coat"         "weight"       "likes_string"
+> [1] "coat"         "weight"       "likes_cheese"
 > ~~~
 > {: .output}
 >
-> If you want to rename the second column of `cats`, you can assign a new name to the second element of `names(cats)`.
+> If you want to rename the second column of `rats`, you can assign a
+> new name to the second element of `names(rats)`.
+>
 > 
 > ~~~
-> names(cats)[2] <- "weight_kg"
-> cats
+> names(rats)[2] <- "weight_kg"
+> rats
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
->     coat weight_kg likes_string
-> 1 calico       2.1         TRUE
-> 2  black       5.0        FALSE
-> 3  tabby       3.2         TRUE
+>       coat weight_kg likes_cheese
+> 1    white       2.1         TRUE
+> 2    white       5.0        FALSE
+> 3 hairless       3.2         TRUE
 > ~~~
 > {: .output}
-{: .callout}
+>
+> {: .callout}
 
 
 
 ## Factors
 
-Another important data structure is called a *factor*. Factors usually look like
-character data, but are typically used to represent categorical information. For
-example, let's make a vector of strings labelling cat colorations for all the
-cats in our study:
+Another important data structure is called a *factor*. Factors usually
+look like character data, but are typically used to represent
+categorical information. For example, let's make a vector of strings
+labelling cat colorations for all the rats in our study:
 
 
 ~~~
-coats <- c('tabby', 'tortoiseshell', 'tortoiseshell', 'black', 'tabby')
+coats <- c('white', 'white', 'hairless', 'hairless', 'white')
 coats
 ~~~
 {: .language-r}
@@ -940,8 +941,7 @@ coats
 
 
 ~~~
-[1] "tabby"         "tortoiseshell" "tortoiseshell" "black"        
-[5] "tabby"        
+[1] "white"    "white"    "hairless" "hairless" "white"   
 ~~~
 {: .output}
 
@@ -955,7 +955,7 @@ str(coats)
 
 
 ~~~
- chr [1:5] "tabby" "tortoiseshell" "tortoiseshell" "black" "tabby"
+ chr [1:5] "white" "white" "hairless" "hairless" "white"
 ~~~
 {: .output}
 
@@ -963,8 +963,8 @@ We can turn a vector into a factor like so:
 
 
 ~~~
-CATegories <- factor(coats)
-class(CATegories)
+categories <- factor(coats)
+class(categories)
 ~~~
 {: .language-r}
 
@@ -978,22 +978,23 @@ class(CATegories)
 
 
 ~~~
-str(CATegories)
+str(categories)
 ~~~
 {: .language-r}
 
 
 
 ~~~
- Factor w/ 3 levels "black","tabby",..: 2 3 3 1 2
+ Factor w/ 2 levels "hairless","white": 2 2 1 1 2
 ~~~
 {: .output}
 
-Now R has noticed that there are three possible categories in our data - but it
-also did something surprising; instead of printing out the strings we gave it,
-we got a bunch of numbers instead. R has replaced our human-readable categories
-with numbered indices under the hood, this is necessary as many statistical
-calculations utilise such numerical representations for categorical data:
+Now R has noticed that there are three possible categories in our data -
+but it also did something surprising; instead of printing out the
+strings we gave it, we got a bunch of numbers instead. R has replaced
+our human-readable categories with numbered indices under the hood, this
+is necessary as many statistical calculations utilise such numerical
+representations for categorical data:
 
 
 ~~~
@@ -1011,7 +1012,7 @@ typeof(coats)
 
 
 ~~~
-typeof(CATegories)
+typeof(categories)
 ~~~
 {: .language-r}
 
@@ -1024,10 +1025,11 @@ typeof(CATegories)
 
 > ## Challenge 2
 >
-> Is there a factor in our `cats` data.frame? what is its name?
-> Try using `?read.csv` to figure out how to keep text columns as character
-> vectors instead of factors; then write a command or two to show that the factor
-> in `cats` is actually a character vector when loaded in this way.
+> Is there a factor in our `rats` data.frame? what is its name? Try
+> using `?read.csv` to figure out how to keep text columns as character
+> vectors instead of factors; then write a command or two to show that
+> the factor in `rats` is actually a character vector when loaded in
+> this way.
 >
 > > ## Solution to Challenge 2
 > >
@@ -1035,30 +1037,30 @@ typeof(CATegories)
 > >
 > > 
 > > ~~~
-> > cats <- read.csv(file="data/feline-data.csv", stringsAsFactors=FALSE)
-> > str(cats$coat)
+> > rats <- read.csv(file="data/rats-data.csv", stringsAsFactors=FALSE)
+> > str(rats$coat)
 > > ~~~
 > > {: .language-r}
 > >
-> > Another solution is use the argument `colClasses`
-> > that allow finer control.
+> > Another solution is use the argument `colClasses` that allow finer
+> > control.
 > >
 > > 
 > > ~~~
-> > cats <- read.csv(file="data/feline-data.csv", colClasses=c(NA, NA, "character"))
-> > str(cats$coat)
+> > rats <- read.csv(file="data/rats-data.csv", colClasses=c(NA, NA, "character"))
+> > str(rats$coat)
 > > ~~~
 > > {: .language-r}
 > >
-> > Note: new students find the help files difficult to understand; make sure to let them know
-> > that this is typical, and encourage them to take their best guess based on semantic meaning,
-> > even if they aren't sure.
-> {: .solution}
-{: .challenge}
+> > Note: new students find the help files difficult to understand; make
+> > sure to let them know that this is typical, and encourage them to
+> > take their best guess based on semantic meaning, even if they aren't
+> > sure. {: .solution} {: .challenge}
 
-In modelling functions, it's important to know what the baseline levels are. This
-is assumed to be the first factor, but by default factors are labelled in
-alphabetical order. You can change this by specifying the levels:
+In modelling functions, it's important to know what the baseline levels
+are. This is assumed to be the first factor, but by default factors are
+labelled in alphabetical order. You can change this by specifying the
+levels:
 
 
 ~~~
@@ -1075,16 +1077,16 @@ str(factor_ordering_example)
 ~~~
 {: .output}
 
-In this case, we've explicitly told R that "control" should be represented by 1, and
-"case" by 2. This designation can be very important for interpreting the
-results of statistical models!
+In this case, we've explicitly told R that "control" should be
+represented by 1, and "case" by 2. This designation can be very
+important for interpreting the results of statistical models!
 
 ## Lists
 
-Another data structure you'll want in your bag of tricks is the `list`. A list
-is simpler in some ways than the other types, because you can put anything you
-want in it. Remember *everything in the vector must be the same basic data type*,
-but a list can have different data types: 
+Another data structure you'll want in your bag of tricks is the `list`.
+A list is simpler in some ways than the other types, because you can put
+anything you want in it. Remember *everything in the vector must be the
+same basic data type*, but a list can have different data types:
 
 
 ~~~
@@ -1132,11 +1134,12 @@ $data
 ~~~
 {: .output}
 
-We can now understand something a bit surprising in our data.frame; what happens if we run:
+We can now understand something a bit surprising in our data.frame; what
+happens if we run:
 
 
 ~~~
-typeof(cats)
+typeof(rats)
 ~~~
 {: .language-r}
 
@@ -1147,49 +1150,51 @@ typeof(cats)
 ~~~
 {: .output}
 
-We see that data.frames look like lists 'under the hood' - this is because a
-data.frame is really a list of vectors and factors, as they have to be - in
-order to hold those columns that are a mix of vectors and factors, the
-data.frame needs something a bit more flexible than a vector to put all the
-columns together into a familiar table.  In other words, a `data.frame` is a
-special list in which all the vectors must have the same length.
+We see that data.frames look like lists 'under the hood' - this is
+because a data.frame is really a list of vectors and factors, as they
+have to be - in order to hold those columns that are a mix of vectors
+and factors, the data.frame needs something a bit more flexible than a
+vector to put all the columns together into a familiar table. In other
+words, a `data.frame` is a special list in which all the vectors must
+have the same length.
 
-In our `cats` example, we have an integer, a double and a logical variable. As
-we have seen already, each column of data.frame is a vector.
-
-
-~~~
-cats$coat
-~~~
-{: .language-r}
-
+In our `rats` example, we have an integer, a double and a logical
+variable. As we have seen already, each column of data.frame is a
+vector.
 
 
 ~~~
-[1] calico black  tabby 
-Levels: black calico tabby
-~~~
-{: .output}
-
-
-
-~~~
-cats[,1]
+rats$coat
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] calico black  tabby 
-Levels: black calico tabby
+[1] white    white    hairless
+Levels: hairless white
 ~~~
 {: .output}
 
 
 
 ~~~
-typeof(cats[,1])
+rats[,1]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] white    white    hairless
+Levels: hairless white
+~~~
+{: .output}
+
+
+
+~~~
+typeof(rats[,1])
 ~~~
 {: .language-r}
 
@@ -1203,38 +1208,38 @@ typeof(cats[,1])
 
 
 ~~~
-str(cats[,1])
+str(rats[,1])
 ~~~
 {: .language-r}
 
 
 
 ~~~
- Factor w/ 3 levels "black","calico",..: 2 1 3
+ Factor w/ 2 levels "hairless","white": 2 2 1
 ~~~
 {: .output}
 
-Each row is an *observation* of different variables, itself a data.frame, and
-thus can be composed of elements of different types.
+Each row is an *observation* of different variables, itself a
+data.frame, and thus can be composed of elements of different types.
 
 
 ~~~
-cats[1,]
+rats[1,]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-    coat weight likes_string
-1 calico    2.1            1
+   coat weight likes_cheese
+1 white    2.1            1
 ~~~
 {: .output}
 
 
 
 ~~~
-typeof(cats[1,])
+typeof(rats[1,])
 ~~~
 {: .language-r}
 
@@ -1248,7 +1253,7 @@ typeof(cats[1,])
 
 
 ~~~
-str(cats[1,])
+str(rats[1,])
 ~~~
 {: .language-r}
 
@@ -1256,146 +1261,165 @@ str(cats[1,])
 
 ~~~
 'data.frame':	1 obs. of  3 variables:
- $ coat        : Factor w/ 3 levels "black","calico",..: 2
+ $ coat        : Factor w/ 2 levels "hairless","white": 2
  $ weight      : num 2.1
- $ likes_string: num 1
+ $ likes_cheese: num 1
 ~~~
 {: .output}
 
 > ## Challenge 3
 >
-> There are several subtly different ways to call variables, observations and
-> elements from data.frames:
+> There are several subtly different ways to call variables,
+> observations and elements from data.frames:
 >
-> - `cats[1]`
-> - `cats[[1]]`
-> - `cats$coat`
-> - `cats["coat"]`
-> - `cats[1, 1]`
-> - `cats[, 1]`
-> - `cats[1, ]`
+> -   `rats[1]`
+> -   `rats[[1]]`
+> -   `rats$coat`
+> -   `rats["coat"]`
+> -   `rats[1, 1]`
+> -   `rats[, 1]`
+> -   `rats[1, ]`
 >
 > Try out these examples and explain what is returned by each one.
 >
-> *Hint:* Use the function `typeof()` to examine what is returned in each case.
+> *Hint:* Use the function `typeof()` to examine what is returned in
+> each case.
 >
 > > ## Solution to Challenge 3
+> >
 > > 
 > > ~~~
-> > cats[1]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >     coat
-> > 1 calico
-> > 2  black
-> > 3  tabby
-> > ~~~
-> > {: .output}
-> > We can think of a data frame as a list of vectors. The single brace `[1]`
-> returns the first slice of the list, as another list. In this case it is the
-> first column of the data frame.
-> > 
-> > ~~~
-> > cats[[1]]
+> > rats[1]
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] calico black  tabby 
-> > Levels: black calico tabby
+> >       coat
+> > 1    white
+> > 2    white
+> > 3 hairless
 > > ~~~
 > > {: .output}
-> > The double brace `[[1]]` returns the contents of the list item. In this case
-> it is the contents of the first column, a _vector_ of type _factor_.
+> >
+> > We can think of a data frame as a list of vectors. The single brace
+> > `[1]` returns the first slice of the list, as another list. In this
+> > case it is the first column of the data frame.
+> >
 > > 
 > > ~~~
-> > cats$coat
+> > rats[[1]]
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] calico black  tabby 
-> > Levels: black calico tabby
+> > [1] white    white    hairless
+> > Levels: hairless white
 > > ~~~
 > > {: .output}
-> > This example uses the `$` character to address items by name. _coat_ is the
-> first column of the data frame, again a _vector_ of type _factor_.
+> >
+> > The double brace `[[1]]` returns the contents of the list item. In
+> > this case it is the contents of the first column, a *vector* of type
+> > *factor*.
+> >
 > > 
 > > ~~~
-> > cats["coat"]
+> > rats$coat
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> >     coat
-> > 1 calico
-> > 2  black
-> > 3  tabby
+> > [1] white    white    hairless
+> > Levels: hairless white
 > > ~~~
 > > {: .output}
-> > Here we are using a single brace `["coat"]` replacing the index number with
-> the column name. Like example 1, the returned object is a _list_.
+> >
+> > This example uses the `$` character to address items by name. *coat*
+> > is the first column of the data frame, again a *vector* of type
+> > *factor*.
+> >
 > > 
 > > ~~~
-> > cats[1, 1]
+> > rats["coat"]
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] calico
-> > Levels: black calico tabby
+> >       coat
+> > 1    white
+> > 2    white
+> > 3 hairless
 > > ~~~
 > > {: .output}
-> > This example uses a single brace, but this time we provide row and column
-> coordinates. The returned object is the value in row 1, column 1. The object
-> is an _integer_ but because it is part of a _vector_ of type _factor_, R
-> displays the label "calico" associated with the integer value.
+> >
+> > Here we are using a single brace `["coat"]` replacing the index
+> > number with the column name. Like example 1, the returned object is
+> > a *list*.
+> >
 > > 
 > > ~~~
-> > cats[, 1]
+> > rats[1, 1]
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] calico black  tabby 
-> > Levels: black calico tabby
+> > [1] white
+> > Levels: hairless white
 > > ~~~
 > > {: .output}
-> > Like the previous example we use single braces and provide row and column
-> coordinates. The row coordinate is not specified, R interprets this missing
-> value as all the elements in this _column_ _vector_.
+> >
+> > This example uses a single brace, but this time we provide row and
+> > column coordinates. The returned object is the value in row 1,
+> > column 1. The object is an *integer* but because it is part of a
+> > *vector* of type *factor*, R displays the label "calico" associated
+> > with the integer value.
+> >
 > > 
 > > ~~~
-> > cats[1, ]
+> > rats[, 1]
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> >     coat weight likes_string
-> > 1 calico    2.1            1
+> > [1] white    white    hairless
+> > Levels: hairless white
 > > ~~~
 > > {: .output}
-> > Again we use the single brace with row and column coordinates. The column
-> coordinate is not specified. The return value is a _list_ containing all the
-> values in the first row.
-> {: .solution}
-{: .challenge}
+> >
+> > Like the previous example we use single braces and provide row and
+> > column coordinates. The row coordinate is not specified, R
+> > interprets this missing value as all the elements in this *column*
+> > *vector*.
+> >
+> > 
+> > ~~~
+> > rats[1, ]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >    coat weight likes_cheese
+> > 1 white    2.1            1
+> > ~~~
+> > {: .output}
+> >
+> > Again we use the single brace with row and column coordinates. The
+> > column coordinate is not specified. The return value is a *list*
+> > containing all the values in the first row. {: .solution} {:
+> > .challenge}
 
 ## Matrices
 
@@ -1418,7 +1442,8 @@ matrix_example
 ~~~
 {: .output}
 
-And similar to other data structures, we can ask things about our matrix:
+And similar to other data structures, we can ask things about our
+matrix:
 
 
 ~~~
@@ -1505,15 +1530,12 @@ ncol(matrix_example)
 
 > ## Challenge 4
 >
-> What do you think will be the result of
-> `length(matrix_example)`?
-> Try it.
-> Were you right? Why / why not?
+> What do you think will be the result of `length(matrix_example)`? Try
+> it. Were you right? Why / why not?
 >
 > > ## Solution to Challenge 4
 > >
-> > What do you think will be the result of
-> > `length(matrix_example)`?
+> > What do you think will be the result of `length(matrix_example)`?
 > >
 > > 
 > > ~~~
@@ -1529,29 +1551,23 @@ ncol(matrix_example)
 > > ~~~
 > > {: .output}
 > >
-> > Because a matrix is a vector with added dimension attributes, `length`
-> > gives you the total number of elements in the matrix.
-> {: .solution}
-{: .challenge}
-
+> > Because a matrix is a vector with added dimension attributes,
+> > `length` gives you the total number of elements in the matrix. {:
+> > .solution} {: .challenge}
 
 > ## Challenge 5
 >
-> Make another matrix, this time containing the numbers 1:50,
-> with 5 columns and 10 rows.
-> Did the `matrix` function fill your matrix by column, or by
-> row, as its default behaviour?
-> See if you can figure out how to change this.
-> (hint: read the documentation for `matrix`!)
+> Make another matrix, this time containing the numbers 1:50, with 5
+> columns and 10 rows. Did the `matrix` function fill your matrix by
+> column, or by row, as its default behaviour? See if you can figure out
+> how to change this. (hint: read the documentation for `matrix`!)
 >
 > > ## Solution to Challenge 5
 > >
-> > Make another matrix, this time containing the numbers 1:50,
-> > with 5 columns and 10 rows.
-> > Did the `matrix` function fill your matrix by column, or by
-> > row, as its default behaviour?
-> > See if you can figure out how to change this.
-> > (hint: read the documentation for `matrix`!)
+> > Make another matrix, this time containing the numbers 1:50, with 5
+> > columns and 10 rows. Did the `matrix` function fill your matrix by
+> > column, or by row, as its default behaviour? See if you can figure
+> > out how to change this. (hint: read the documentation for `matrix`!)
 > >
 > > 
 > > ~~~
@@ -1559,20 +1575,22 @@ ncol(matrix_example)
 > > x <- matrix(1:50, ncol=5, nrow=10, byrow = TRUE) # to fill by row
 > > ~~~
 > > {: .language-r}
-> {: .solution}
-{: .challenge}
-
+> >
+> > {: .solution} {: .challenge}
 
 > ## Challenge 6
->  Create a list of length two containing a character vector for each of the sections in this part of the workshop:
 >
->  - Data types
->  - Data structures
+> Create a list of length two containing a character vector for each of
+> the sections in this part of the workshop:
 >
->  Populate each character vector with the names of the data types and data
->  structures we've seen so far.
+> -   Data types
+> -   Data structures
+>
+> Populate each character vector with the names of the data types and
+> data structures we've seen so far.
 >
 > > ## Solution to Challenge 6
+> >
 > > 
 > > ~~~
 > > dataTypes <- c('double', 'complex', 'integer', 'character', 'logical')
@@ -1580,17 +1598,18 @@ ncol(matrix_example)
 > > answer <- list(dataTypes, dataStructures)
 > > ~~~
 > > {: .language-r}
-> > Note: it's nice to make a list in big writing on the board or taped to the wall
-> > listing all of these types and structures - leave it up for the rest of the workshop
-> > to remind people of the importance of these basics.
 > >
-> {: .solution}
-{: .challenge}
-
+> > Note: it's nice to make a list in big writing on the board or taped
+> > to the wall listing all of these types and structures - leave it up
+> > for the rest of the workshop to remind people of the importance of
+> > these basics.
+> >
+> > {: .solution} {: .challenge}
 
 > ## Challenge 7
 >
 > Consider the R output of the matrix below:
+>
 > 
 > ~~~
 >      [,1] [,2]
@@ -1599,18 +1618,20 @@ ncol(matrix_example)
 > [3,]   10    7
 > ~~~
 > {: .output}
-> What was the correct command used to write this matrix? Examine
-> each command and try to figure out the correct one before typing them.
+>
+> What was the correct command used to write this matrix? Examine each
+> command and try to figure out the correct one before typing them.
 > Think about what matrices the other commands will produce.
 >
-> 1. `matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)`
-> 2. `matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)`
-> 3. `matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)`
-> 4. `matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)`
+> 1.  `matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)`
+> 2.  `matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)`
+> 3.  `matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)`
+> 4.  `matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)`
 >
 > > ## Solution to Challenge 7
 > >
 > > Consider the R output of the matrix below:
+> >
 > > 
 > > ~~~
 > >      [,1] [,2]
@@ -1619,13 +1640,15 @@ ncol(matrix_example)
 > > [3,]   10    7
 > > ~~~
 > > {: .output}
-> > What was the correct command used to write this matrix? Examine
-> > each command and try to figure out the correct one before typing them.
+> >
+> > What was the correct command used to write this matrix? Examine each
+> > command and try to figure out the correct one before typing them.
 > > Think about what matrices the other commands will produce.
+> >
 > > 
 > > ~~~
 > > matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)
 > > ~~~
 > > {: .language-r}
-> {: .solution}
-{: .challenge}
+> >
+> > {: .solution} {: .challenge}

@@ -43,17 +43,17 @@ new column, we can start by making a new vector:
 
 ~~~
 age <- c(2, 3, 5)
-cats
+rats
 ~~~
 {: .language-r}
 
 
 
 ~~~
-    coat weight likes_string
-1 calico    2.1            1
-2  black    5.0            0
-3  tabby    3.2            1
+      coat weight likes_cheese
+1    white    2.1            1
+2    white    5.0            0
+3 hairless    3.2            1
 ~~~
 {: .output}
 
@@ -61,17 +61,17 @@ We can then add this as a column via:
 
 
 ~~~
-cbind(cats, age)
+cbind(rats, age)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-    coat weight likes_string age
-1 calico    2.1            1   2
-2  black    5.0            0   3
-3  tabby    3.2            1   5
+      coat weight likes_cheese age
+1    white    2.1            1   2
+2    white    5.0            0   3
+3 hairless    3.2            1   5
 ~~~
 {: .output}
 
@@ -80,7 +80,7 @@ Note that if we tried to add a vector of ages with a different number of entries
 
 ~~~
 age <- c(2, 3, 5, 12)
-cbind(cats, age)
+cbind(rats, age)
 ~~~
 {: .language-r}
 
@@ -95,7 +95,7 @@ Error in data.frame(..., check.names = FALSE): arguments imply differing number 
 
 ~~~
 age <- c(2, 3)
-cbind(cats, age)
+cbind(rats, age)
 ~~~
 {: .language-r}
 
@@ -111,7 +111,7 @@ for every row in the table:
 
 
 ~~~
-nrow(cats)
+nrow(rats)
 ~~~
 {: .language-r}
 
@@ -136,12 +136,12 @@ length(age)
 ~~~
 {: .output}
 
-So for it to work we need to have `nrow(cats)` = `length(age)`. Let's overwrite the content of cats with our new data frame.
+So for it to work we need to have `nrow(rats)` = `length(age)`. Let's overwrite the content of rats with our new data frame.
 
 
 ~~~
 age <- c(2, 3, 5)
-cats <- cbind(cats, age)
+rats <- cbind(rats, age)
 ~~~
 {: .language-r}
 
@@ -151,7 +151,7 @@ data frame are lists:
 
 ~~~
 newRow <- list("tortoiseshell", 3.3, TRUE, 9)
-cats <- rbind(cats, newRow)
+rats <- rbind(rats, newRow)
 ~~~
 {: .language-r}
 
@@ -163,22 +163,22 @@ level, NA generated
 ~~~
 {: .warning}
 
-Looks like our attempt to use the `rbind()` function returns a warning.  Recall that, unlike errors, warnings do not necessarily stop a function from performing its intended action.  You can confirm this by taking a look at the `cats` data frame.
+Looks like our attempt to use the `rbind()` function returns a warning.  Recall that, unlike errors, warnings do not necessarily stop a function from performing its intended action.  You can confirm this by taking a look at the `rats` data frame.
 
 
 ~~~
-cats
+rats
 ~~~
 {: .language-r}
 
 
 
 ~~~
-    coat weight likes_string age
-1 calico    2.1            1   2
-2  black    5.0            0   3
-3  tabby    3.2            1   5
-4   <NA>    3.3            1   9
+      coat weight likes_cheese age
+1    white    2.1            1   2
+2    white    5.0            0   3
+3 hairless    3.2            1   5
+4     <NA>    3.3            1   9
 ~~~
 {: .output}
 
@@ -196,22 +196,22 @@ those variables are not factors. To successfully add a cat with a
 
 
 ~~~
-levels(cats$coat)
+levels(rats$coat)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "black"  "calico" "tabby" 
+[1] "hairless" "white"   
 ~~~
 {: .output}
 
 
 
 ~~~
-levels(cats$coat) <- c(levels(cats$coat), "tortoiseshell")
-cats <- rbind(cats, list("tortoiseshell", 3.3, TRUE, 9))
+levels(rats$coat) <- c(levels(rats$coat), "tortoiseshell")
+rats <- rbind(rats, list("tortoiseshell", 3.3, TRUE, 9))
 ~~~
 {: .language-r}
 
@@ -221,7 +221,7 @@ column without babysitting the factor levels:
 
 
 ~~~
-str(cats)
+str(rats)
 ~~~
 {: .language-r}
 
@@ -229,9 +229,9 @@ str(cats)
 
 ~~~
 'data.frame':	5 obs. of  4 variables:
- $ coat        : Factor w/ 4 levels "black","calico",..: 2 1 3 NA 4
+ $ coat        : Factor w/ 3 levels "hairless","white",..: 2 2 1 NA 3
  $ weight      : num  2.1 5 3.2 3.3 3.3
- $ likes_string: int  1 0 1 1 1
+ $ likes_cheese: int  1 0 1 1 1
  $ age         : num  2 3 5 9 9
 ~~~
 {: .output}
@@ -239,8 +239,8 @@ str(cats)
 
 
 ~~~
-cats$coat <- as.character(cats$coat)
-str(cats)
+rats$coat <- as.character(rats$coat)
+str(rats)
 ~~~
 {: .language-r}
 
@@ -248,21 +248,21 @@ str(cats)
 
 ~~~
 'data.frame':	5 obs. of  4 variables:
- $ coat        : chr  "calico" "black" "tabby" NA ...
+ $ coat        : chr  "white" "white" "hairless" NA ...
  $ weight      : num  2.1 5 3.2 3.3 3.3
- $ likes_string: int  1 0 1 1 1
+ $ likes_cheese: int  1 0 1 1 1
  $ age         : num  2 3 5 9 9
 ~~~
 {: .output}
 
 > ## Challenge 1
 > Let's imagine that 1 cat year is equivalent to 7 human years.
-> 1. Create a vector called `human_age` by multiplying `cats$age` by 7.
+> 1. Create a vector called `human_age` by multiplying `rats$age` by 7.
 > 2. Convert `human_age` to a factor.
 > 3. Convert `human_age` back to a numeric vector using the `as.numeric()` function. Now divide it by 7 to get the original ages back. Explain what happened.
 >
 > > ## Solution to Challenge 1
-> > 1. `human_age <- cats$age * 7`
+> > 1. `human_age <- rats$age * 7`
 > > 2. `human_age <- factor(human_age)`. `as.factor(human_age)` works just as well.
 > > 3. `as.numeric(human_age)` yields `1 2 3 4 4` because factors are stored as integers (here, 1:4), each of which is associated with a label (here, 28, 35, 56, and 63). Converting the factor to a numeric vector gives us the underlying integers, not the labels. If we want the original numbers, we need to convert `human_age` to a character vector (using `as.character(human_age)`) and then to a numeric vector (why does this work?). This comes up in real life when we accidentally include a character somewhere in a column of a .csv file supposed to only contain numbers, and forget to set `stringsAsFactors=FALSE` when we read in the data.
 > {: .solution}
@@ -276,17 +276,17 @@ added a garbage row:
 
 
 ~~~
-cats
+rats
 ~~~
 {: .language-r}
 
 
 
 ~~~
-           coat weight likes_string age
-1        calico    2.1            1   2
-2         black    5.0            0   3
-3         tabby    3.2            1   5
+           coat weight likes_cheese age
+1         white    2.1            1   2
+2         white    5.0            0   3
+3      hairless    3.2            1   5
 4          <NA>    3.3            1   9
 5 tortoiseshell    3.3            1   9
 ~~~
@@ -296,17 +296,17 @@ We can ask for a data frame minus this offending row:
 
 
 ~~~
-cats[-4, ]
+rats[-4, ]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-           coat weight likes_string age
-1        calico    2.1            1   2
-2         black    5.0            0   3
-3         tabby    3.2            1   5
+           coat weight likes_cheese age
+1         white    2.1            1   2
+2         white    5.0            0   3
+3      hairless    3.2            1   5
 5 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -314,32 +314,32 @@ cats[-4, ]
 Notice the comma with nothing after it to indicate that we want to drop the entire fourth row.
 
 Note: we could also remove both new rows at once by putting the row numbers
-inside of a vector: `cats[c(-4,-5), ]`
+inside of a vector: `rats[c(-4,-5), ]`
 
 Alternatively, we can drop all rows with `NA` values:
 
 
 ~~~
-na.omit(cats)
+na.omit(rats)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-           coat weight likes_string age
-1        calico    2.1            1   2
-2         black    5.0            0   3
-3         tabby    3.2            1   5
+           coat weight likes_cheese age
+1         white    2.1            1   2
+2         white    5.0            0   3
+3      hairless    3.2            1   5
 5 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
 
-Let's reassign the output to `cats`, so that our changes will be permanent:
+Let's reassign the output to `rats`, so that our changes will be permanent:
 
 
 ~~~
-cats <- na.omit(cats)
+rats <- na.omit(rats)
 ~~~
 {: .language-r}
 
@@ -349,39 +349,39 @@ We can also remove columns in our data frame. What if we want to remove the colu
 
 
 ~~~
-cats[,-4]
+rats[,-4]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-           coat weight likes_string
-1        calico    2.1            1
-2         black    5.0            0
-3         tabby    3.2            1
+           coat weight likes_cheese
+1         white    2.1            1
+2         white    5.0            0
+3      hairless    3.2            1
 5 tortoiseshell    3.3            1
 ~~~
 {: .output}
 
 Notice the comma with nothing before it, indicating we want to keep all of the rows.  
 
-Alternatively, we can drop the column by using the index name and the `%in%` operator. The `%in%` operator goes through each element of its left argument, in this case the names of `cats`, and asks, "Does this element occur in the second argument?"
+Alternatively, we can drop the column by using the index name and the `%in%` operator. The `%in%` operator goes through each element of its left argument, in this case the names of `rats`, and asks, "Does this element occur in the second argument?"
 
 
 ~~~
-drop <- names(cats) %in% c("age")
-cats[,!drop]
+drop <- names(rats) %in% c("age")
+rats[,!drop]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-           coat weight likes_string
-1        calico    2.1            1
-2         black    5.0            0
-3         tabby    3.2            1
+           coat weight likes_cheese
+1         white    2.1            1
+2         white    5.0            0
+3      hairless    3.2            1
 5 tortoiseshell    3.3            1
 ~~~
 {: .output}
@@ -396,22 +396,22 @@ together with `rbind`:
 
 
 ~~~
-cats <- rbind(cats, cats)
-cats
+rats <- rbind(rats, rats)
+rats
 ~~~
 {: .language-r}
 
 
 
 ~~~
-            coat weight likes_string age
-1         calico    2.1            1   2
-2          black    5.0            0   3
-3          tabby    3.2            1   5
+            coat weight likes_cheese age
+1          white    2.1            1   2
+2          white    5.0            0   3
+3       hairless    3.2            1   5
 5  tortoiseshell    3.3            1   9
-11        calico    2.1            1   2
-21         black    5.0            0   3
-31         tabby    3.2            1   5
+11         white    2.1            1   2
+21         white    5.0            0   3
+31      hairless    3.2            1   5
 51 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -420,22 +420,22 @@ and R will automatically re-name them sequentially:
 
 
 ~~~
-rownames(cats) <- NULL
-cats
+rownames(rats) <- NULL
+rats
 ~~~
 {: .language-r}
 
 
 
 ~~~
-           coat weight likes_string age
-1        calico    2.1            1   2
-2         black    5.0            0   3
-3         tabby    3.2            1   5
+           coat weight likes_cheese age
+1         white    2.1            1   2
+2         white    5.0            0   3
+3      hairless    3.2            1   5
 4 tortoiseshell    3.3            1   9
-5        calico    2.1            1   2
-6         black    5.0            0   3
-7         tabby    3.2            1   5
+5         white    2.1            1   2
+6         white    5.0            0   3
+7      hairless    3.2            1   5
 8 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -477,28 +477,13 @@ cats
 ## Realistic example
 So far, you have seen the basics of manipulating data frames with our cat data;
 now let's use those skills to digest a more realistic dataset. Let's read in the
-`gapminder` dataset that we downloaded previously:
+`covid` dataset that we downloaded previously:
 
 
 ~~~
-gapminder <- read.csv("data/gapminder_data.csv", stringsAsFactors = TRUE)
+covid <- read.csv("data/daily_summary.csv", stringsAsFactors = TRUE)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning in file(file, "rt"): cannot open file 'data/gapminder_data.csv': No such
-file or directory
-~~~
-{: .warning}
-
-
-
-~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
 
 > ## Miscellaneous Tips
 >
@@ -509,15 +494,15 @@ Error in file(file, "rt"): cannot open the connection
 > The `read.csv` function can then be executed to read the downloaded file from the download location, for example,
 > 
 > ~~~
-> download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", destfile = "data/gapminder_data.csv")
-> gapminder <- read.csv("data/gapminder_data.csv", stringsAsFactors = TRUE)
+> download.file("https://arizona.figshare.com/ndownloader/files/36250209", destfile = "data/daily_summary.csv")
+> covid <- read.csv("data/daily_summary.csv", stringsAsFactors = TRUE)
 > ~~~
 > {: .language-r}
 >
 > * Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read.csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
 > 
 > ~~~
-> gapminder <- read.csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", stringsAsFactors = TRUE)
+> covid <- read.csv("download.file("https://arizona.figshare.com/ndownloader/files/36250209", destfile = "data/daily_summary.csv")", stringsAsFactors = TRUE)
 > ~~~
 > {: .language-r}
 >
@@ -525,174 +510,182 @@ Error in file(file, "rt"): cannot open the connection
 > converting them to plain text first by using the [readxl](https://cran.r-project.org/package=readxl) package.
 {: .callout}
 
-Let's investigate gapminder a bit; the first thing we should always do is check
+Let's investigate `covid` a bit; the first thing we should always do is check
 out what the data looks like with `str`:
 
 
 ~~~
-str(gapminder)
+str(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in str(gapminder): object 'gapminder' not found
+'data.frame':	9180 obs. of  6 variables:
+ $ result_date   : Factor w/ 541 levels "2020-08-04","2020-08-05",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ affil_category: Factor w/ 4 levels "Employee","Off-Campus Student",..: 1 1 1 1 2 2 2 2 3 3 ...
+ $ test_type     : Factor w/ 3 levels "Antibody","Antigen",..: 2 2 2 2 2 2 3 3 2 2 ...
+ $ test_result   : Factor w/ 3 levels "Inconclusive",..: 2 3 2 3 2 3 2 3 2 3 ...
+ $ test_count    : int  5 0 1 0 9 1 0 1 77 0 ...
+ $ test_source   : Factor w/ 2 levels "Campus Health",..: 1 1 2 2 1 1 1 1 2 2 ...
 ~~~
-{: .error}
+{: .output}
 
-An additional method for examining the structure of gapminder is to use the `summary` function. This function can be used on various objects in R. For data frames, `summary` yields a numeric, tabular, or descriptive summary of each column. Factor columns are summarized by the number of items in each level, numeric or integer columns by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.  
+An additional method for examining the structure of `covid` is to use the `summary` function. This function can be used on various objects in R. For data frames, `summary` yields a numeric, tabular, or descriptive summary of each column. Factor columns are summarized by the number of items in each level, numeric or integer columns by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.  
 
 
 ~~~
-summary(gapminder$country)
+summary(covid$affil_category)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in summary(gapminder$country): object 'gapminder' not found
+          Employee Off-Campus Student  On-Campus Student              Other 
+              2987               3368               2823                  2 
 ~~~
-{: .error}
+{: .output}
 
 Along with the `str` and `summary` functions, we can examine individual columns of the data frame with our `typeof` function:
 
 
 ~~~
-typeof(gapminder$year)
+typeof(covid$test_count)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in typeof(gapminder$year): object 'gapminder' not found
+[1] "integer"
 ~~~
-{: .error}
-
-
-
-~~~
-typeof(gapminder$country)
-~~~
-{: .language-r}
+{: .output}
 
 
 
 ~~~
-Error in typeof(gapminder$country): object 'gapminder' not found
-~~~
-{: .error}
-
-
-
-~~~
-str(gapminder$country)
+typeof(covid$affil_category)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in str(gapminder$country): object 'gapminder' not found
+[1] "integer"
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+str(covid$affil_category)
+~~~
+{: .language-r}
+
+
+
+~~~
+ Factor w/ 4 levels "Employee","Off-Campus Student",..: 1 1 1 1 2 2 2 2 3 3 ...
+~~~
+{: .output}
 
 We can also interrogate the data frame for information about its dimensions;
-remembering that `str(gapminder)` said there were 1704 observations of 6
-variables in gapminder, what do you think the following will produce, and why?
+remembering that `str(covid)` said there were 9180 observations of 6
+variables in covid, what do you think the following will produce, and why?
 
 
 ~~~
-length(gapminder)
+length(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'gapminder' not found
+[1] 6
 ~~~
-{: .error}
+{: .output}
 
 A fair guess would have been to say that the length of a data frame would be the
-number of rows it has (1704), but this is not the case; remember, a data frame
+number of rows it has (9180), but this is not the case; remember, a data frame
 is a *list of vectors and factors*:
 
 
 ~~~
-typeof(gapminder)
+typeof(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in typeof(gapminder): object 'gapminder' not found
+[1] "list"
 ~~~
-{: .error}
+{: .output}
 
-When `length` gave us 6, it's because gapminder is built out of a list of 6
+When `length` gave us 6, it's because covid is built out of a list of 6
 columns. To get the number of rows and columns in our dataset, try:
 
 
 ~~~
-nrow(gapminder)
+nrow(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in nrow(gapminder): object 'gapminder' not found
+[1] 9180
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-ncol(gapminder)
+ncol(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in ncol(gapminder): object 'gapminder' not found
+[1] 6
 ~~~
-{: .error}
+{: .output}
 
 Or, both at once:
 
 
 ~~~
-dim(gapminder)
+dim(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'gapminder' not found
+[1] 9180    6
 ~~~
-{: .error}
+{: .output}
 
 We'll also likely want to know what the titles of all the columns are, so we can
 ask for them later:
 
 
 ~~~
-colnames(gapminder)
+colnames(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in is.data.frame(x): object 'gapminder' not found
+[1] "result_date"    "affil_category" "test_type"      "test_result"   
+[5] "test_count"     "test_source"   
 ~~~
-{: .error}
+{: .output}
 
 At this stage, it's important to ask ourselves if the structure R is reporting
 matches our intuition or expectations; do the basic data types reported for each
@@ -706,29 +699,42 @@ to start digging into our data proper. Check out the first few lines:
 
 
 ~~~
-head(gapminder)
+head(covid)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in head(gapminder): object 'gapminder' not found
+  result_date     affil_category test_type test_result test_count
+1  2020-08-04           Employee   Antigen    Negative          5
+2  2020-08-04           Employee   Antigen    Positive          0
+3  2020-08-04           Employee   Antigen    Negative          1
+4  2020-08-04           Employee   Antigen    Positive          0
+5  2020-08-04 Off-Campus Student   Antigen    Negative          9
+6  2020-08-04 Off-Campus Student   Antigen    Positive          1
+          test_source
+1       Campus Health
+2       Campus Health
+3 Test All Test Smart
+4 Test All Test Smart
+5       Campus Health
+6       Campus Health
 ~~~
-{: .error}
+{: .output}
 
 > ## Challenge 3
 >
 > It's good practice to also check the last few lines of your data and some in the middle. How would you do this?
 >
-> Searching for ones specifically in the middle isn't too hard, but we could ask for a few lines at random. How would you code this?
+> Searching for ones specifically in the middle isn't too hard: we could ask for a few lines at random. How would you code this?
 >
 > > ## Solution to Challenge 3
 > > To check the last few lines it's relatively simple as R already has a function for this:
 > >
 > > ~~~
-> > tail(gapminder)
-> > tail(gapminder, n = 15)
+> > tail(covid)
+> > tail(covid, n = 15)
 > > ~~~
 > > {: .r}
 > >
@@ -737,7 +743,7 @@ Error in head(gapminder): object 'gapminder' not found
 > > The solution here presents one form of using nested functions, i.e. a function passed as an argument to another function. This might sound like a new concept, but you are already using it!
 > > Remember my_dataframe[rows, cols] will print to screen your data frame with the number of rows and columns you asked for (although you might have asked for a range or named columns for example). How would you get the last row if you don't know how many rows your data frame has? R has a function for this. What about getting a (pseudorandom) sample? R also has a function for this.
 > > ~~~
-> > gapminder[sample(nrow(gapminder), 5), ]
+> > covid[sample(nrow(covid), 5), ]
 > > ~~~
 > > {: .r}
 > {: .solution}
@@ -750,7 +756,7 @@ into a script file so we can come back to it later.
 > ## Challenge 4
 >
 > Go to file -> new file -> R script, and write an R script
-> to load in the gapminder dataset. Put it in the `scripts/`
+> to load in the covid dataset. Put it in the `scripts/`
 > directory and add it to version control.
 >
 > Run the script using the `source` function, using the file path
@@ -769,14 +775,14 @@ into a script file so we can come back to it later.
 > >
 > > 
 > > ~~~
-> > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", destfile = "data/gapminder_data.csv")
-> > gapminder <- read.csv(file = "data/gapminder_data.csv", stringsAsFactors = TRUE)
+> > download.file("https://arizona.figshare.com/ndownloader/files/36250209", destfile = "data/daily_summary.csv")
+> > covid <- read.csv(file = "data/daily_summary.csv", stringsAsFactors = TRUE)
 > > ~~~
 > > {: .language-r}
-> > To run the script and load the data into the `gapminder` variable:
+> > To run the script and load the data into the `covid` variable:
 > > 
 > > ~~~
-> > source(file = "scripts/load-gapminder.R")
+> > source(file = "scripts/load-covid.R")
 > > ~~~
 > > {: .language-r}
 > {: .solution}
@@ -784,18 +790,18 @@ into a script file so we can come back to it later.
 
 > ## Challenge 5
 >
-> Read the output of `str(gapminder)` again;
+> Read the output of `str(covid)` again;
 > this time, use what you've learned about factors, lists and vectors,
 > as well as the output of functions like `colnames` and `dim`
-> to explain what everything that `str` prints out for gapminder means.
+> to explain what everything that `str` prints out for covid means.
 > If there are any parts you can't interpret, discuss with your neighbors!
 >
 > > ## Solution to Challenge 5
 > >
-> > The object `gapminder` is a data frame with columns
-> > - `country` and `continent` are factors.
-> > - `year` is an integer vector.
-> > - `pop`, `lifeExp`, and `gdpPercap` are numeric vectors.
+> > The object `covid` is a data frame with columns
+> > - `result_date`, `result_date`, `test_type`, `test_result`, and `test_source` are factors.
+> > - `test_count` is an integer vector.
+> > 
 > >
 > {: .solution}
 {: .challenge}

@@ -19,9 +19,9 @@ source: Rmd
 
 ## Reading Help Files
 
-R, and every package, provide help files for functions. The general syntax to search for help on any
+R, and every package, provide help files for functions. The two general ways to search for help on any
 function, "function_name", from a specific function that is in a package loaded into your
-namespace (your interactive R session) is:
+namespace (your interactive R session) are:
 
 
 ~~~
@@ -132,7 +132,7 @@ fields. This can be a good starting point.
 
 ## When Your Code Doesn't Work: Seeking Help from Your Peers
 
-If you're having trouble using a function, 9 times out of 10,
+If you're having trouble using a function, 9.5 times out of 10,
 the answers you seek have already been answered on
 [Stack Overflow](http://stackoverflow.com/). You can search using
 the `[r]` tag. Please make sure to see their page on 
@@ -174,18 +174,29 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] knitr_1.41
+[1] knitr_1.42
 
 loaded via a namespace (and not attached):
- [1] compiler_4.2.2  magrittr_2.0.3  cli_3.4.1       tools_4.2.2    
- [5] glue_1.6.2      vctrs_0.5.1     stringi_1.7.8   stringr_1.5.0  
- [9] xfun_0.35       lifecycle_1.0.3 rlang_1.0.6     evaluate_0.18  
+ [1] compiler_4.2.2  magrittr_2.0.3  cli_3.6.0       tools_4.2.2    
+ [5] glue_1.6.2      rstudioapi_0.14 vctrs_0.5.2     stringi_1.7.12 
+ [9] stringr_1.5.0   xfun_0.37       lifecycle_1.0.3 rlang_1.0.6    
+[13] evaluate_0.20  
 ~~~
 {: .output}
 
 Will print out your current version of R, as well as any packages you
 have loaded. This can be useful for others to help reproduce and debug
 your issue.
+
+## How to Write a Reproducible Example 
+
+Sometimes you can answer your own question by breaking down the error into a packageable question! Learn to write [reproducible examples with Hadley Wickham](http://adv-r.had.co.nz/Reproducibility.html#:~:text=A%20reproducible%20example%20allows%20someone,description%20of%20your%20R%20environment.).
+
+## Get help at UArizona
+
+Join the [UA Data Science Slack](https://jcoliver.github.io/uadatascience-slack/)
+Check out weekly meetups with [ResBaz Arizona](https://researchbazaar.arizona.edu/)
+Ask a [Data Science Institute Educator](https://datascience.arizona.edu/education)
 
 > ## Challenge 1
 >

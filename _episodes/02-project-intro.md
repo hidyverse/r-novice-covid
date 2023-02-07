@@ -145,10 +145,10 @@ one to store the analysis scripts.
 Now we have a good directory structure we will now place/save the data file in the `data/` directory.
 
 > ## Challenge 3
-> Download the gapminder data from [here](https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv).
+> Copy the "r-novice-covid" data from the shared data directory in Cyverse. Hint: data/data/iplant/home/shared/cosimichele/dailysummary.csv
 >
 > 1. Download the file (right mouse click on the link above -> "Save link as" / "Save file as", or click on the link and after the page loads, press <kbd>Ctrl</kbd>+<kbd>S</kbd> or choose File -> "Save page as")
-> 2. Make sure it's saved under the name `gapminder_data.csv`
+> 2. Make sure it's saved under the name `daily_summary.csv`
 > 3. Save the file in the `data/` folder within your project.
 >
 > We will load and inspect these data later.
@@ -168,7 +168,7 @@ Now we have a good directory structure we will now place/save the data file in t
 > > By running these commands in the shell:
 > > 
 > > ~~~
-> > ls -lh data/gapminder_data.csv
+> > ls -lh data/daily_summary.csv
 > > ~~~
 > > {: .language-sh}
 > > 
@@ -176,13 +176,13 @@ Now we have a good directory structure we will now place/save the data file in t
 > > 
 > > 
 > > ~~~
-> > ls: data/gapminder_data.csv: No such file or directory
+> > -rw-rw-r--@ 1 hidyverse  staff   549K Dec  9 10:20 data/daily_summary.csv
 > > ~~~
 > > {: .output}
-> > The file size is 80K.
+> > The file size is 549K.
 > > 
 > > ~~~
-> > wc -l data/gapminder_data.csv
+> > wc -l data/daily_summary.csv
 > > ~~~
 > > {: .language-sh}
 > > 
@@ -190,13 +190,13 @@ Now we have a good directory structure we will now place/save the data file in t
 > > 
 > > 
 > > ~~~
-> > wc: data/gapminder_data.csv: open: No such file or directory
+> >     9181 data/daily_summary.csv
 > > ~~~
 > > {: .output}
-> > There are 1705 lines. The data looks like:
+> > There are 9181 lines. The data looks like:
 > > 
 > > ~~~
-> > head data/gapminder_data.csv
+> > head data/daily_summary.csv
 > > ~~~
 > > {: .language-sh}
 > > 
@@ -204,7 +204,16 @@ Now we have a good directory structure we will now place/save the data file in t
 > > 
 > > 
 > > ~~~
-> > head: data/gapminder_data.csv: No such file or directory
+> > "result_date","affil_category","test_type","test_result","test_count","test_source"
+> > 2020-08-04,Employee,Antigen,Negative,5,Campus Health
+> > 2020-08-04,Employee,Antigen,Positive,0,Campus Health
+> > 2020-08-04,Employee,Antigen,Negative,1,Test All Test Smart
+> > 2020-08-04,Employee,Antigen,Positive,0,Test All Test Smart
+> > 2020-08-04,Off-Campus Student,Antigen,Negative,9,Campus Health
+> > 2020-08-04,Off-Campus Student,Antigen,Positive,1,Campus Health
+> > 2020-08-04,Off-Campus Student,PCR,Negative,0,Campus Health
+> > 2020-08-04,Off-Campus Student,PCR,Positive,1,Campus Health
+> > 2020-08-04,On-Campus Student,Antigen,Negative,77,Test All Test Smart
 > > ~~~
 > > {: .output}
 > {: .solution}
