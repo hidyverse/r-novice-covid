@@ -17,7 +17,8 @@ packages.
 ### Recordings: 
 
 Lesson 1 - [Introduction to Cyverse, R, and RStudio](https://arizona.box.com/s/ko7zgzfmavttcz3gpbjyjbq9k8shemti)   
-Lesson 2 - [Project Management and Seeking Help in RStudio](https://arizona.box.com/s/haw6pq51nwwymp2s330otbro7vtfvieg)
+Lesson 2 - [Project Management and Seeking Help in RStudio](https://arizona.box.com/s/haw6pq51nwwymp2s330otbro7vtfvieg)  
+Lesson 3 - [Data Structures and Exploring Data Frames with R](https://arizona.box.com/s/3l3pa47cdde3lb193a7mqnbgfixqv73o)
 
 ### Maintainers:
 
